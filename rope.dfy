@@ -6,25 +6,122 @@ module Rope {
     var len: int
     var max: int
     var min: int
+    var arr: seq<Rope<T>>
 
-    predicate childCount(rope: Rope<T>)
-      reads rope
+    predicate pathsHaveLeaves(c: seq<Rope<T>>)
+      reads c
     {
-      match rope.val
-      case Leaf(t) => true
-      case InternalNode(children) => forall k: int :: 0 <= k < children.Length ==> minChildren(a[k])
+      if |c| <= 0 then false
+      else
+        match c[0].val
+        case Leaf(v) => true
+        case InternalNode(children) => pathsHaveLeaves(c[1..])
     }
 
-    predicate minChildren(rope: Rope<T>)
-      reads rope
+    predicate pathHasLeaf()
+      reads this, match this.val case InternalNode(children) => pathsHaveLeaves.reads(children) case Leaf(v) => pathsHaveLeaves.reads([])
+      decreases this.val
     {
-      match rope.val
-      case Leaf(t) => true
-      case InternalNode(children) => children.Length >= min && forall k: int :: 0 <= k < children.Length ==> minChildren(a[k])
+      match this.val
+      case Leaf(v) => true
+      case InternalNode(children) => this.pathsHaveLeaves(children)
     }
-
   }
 }
+
+
+
+
+
+module Rope {
+  datatype Node<T> = Leaf(value: T) | InternalNode(children: seq<Rope<T>>)
+
+  class Rope<T> {
+    var val: Node<T>
+    var len: int
+    var max: int
+    var min: int
+
+
+    function sum<T>(c: seq<Rope<T>>): int
+      requires |c| > 0
+    {
+      if |c| == 1 then countLeaves(c[0])
+      else countLeaves(c[0]) + sum(c[1..])
+    }
+
+
+    function countLeaves(r: Rope): int
+      decreases r
+    {
+      match r
+      case Leaf(v) => 1
+      case Node(children) =>
+        if |children| <= 0 then 0
+        else sum(children)
+    }
+  }
+}
+
+
+module Rope {
+  datatype Node<T> = Leaf(value: T) | InternalNode(children: seq<Rope<T>>)
+
+  class Rope<T> {
+    var val: Node<T>
+    var len: int
+    var max: int
+    var min: int
+
+
+    function sum<T>(c: seq<Rope<T>>): int
+      reads c
+      requires |c| > 0
+      decreases c
+    {
+      if |c| == 1 then c[0].countLeaves()
+      else c[0].countLeaves() + sum(c[1..])
+    }
+
+
+    function countLeaves(): int
+      reads this
+      decreases this.val
+    {
+      match this.val
+      case Leaf(v) => 1
+      case InternalNode(children) =>
+        if |children| <= 0 then 0
+        else this.sum(children)
+    }
+  }
+}
+
+
+
+
+
+predicate validChildren(rope: Rope<T>)
+  reads rope
+{
+  match rope.val
+  case Leaf(t) => true    // todo: all children must be either leaves or internal nodes? not mixed?
+  case InternalNode(children) => |children| >= min && |children| <= max && forall k: int :: 0 <= k < |children| ==> validChildren(children[k])
+}
+
+
+
+
+predicate childCount(rope: Rope<T>)
+  reads rope
+{
+  match rope.val
+  case Leaf(t) => true
+  case InternalNode(children) => forall k: int :: 0 <= k < children.Length ==> minChildren(a[k])
+}
+
+
+
 
 datatype Rope<T> = Leaf(value: T) | Node(children: seq<Rope<T>>)
 
@@ -48,11 +145,35 @@ function countLeaves(r: Rope): int
 
 
 
+module Rope {
+  datatype Node<T> = Leaf(value: T) | InternalNode(children: seq<Rope<T>>)
+
+  class Rope<T> {
+    var val: Node<T>
+    var len: int
+    var max: int
+    var min: int
+
+    function sum<T>(c: seq<Rope<T>>): int
+      reads c
+      decreases |c|
+    {
+      if |c| == 0 then 0
+      else if |c| == 1 then c[0].countLeaves()
+      else c[0].countLeaves() + sum(c[1..])
+    }
 
 
-
-
-
+    function countLeaves(): int
+      reads this
+      decreases this
+    {
+      match this.val
+      case Leaf(v) => 1
+      case InternalNode(children) => sum(children)
+    }
+  }
+}
 
 
 module Rope {
