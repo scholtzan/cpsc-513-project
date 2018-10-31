@@ -1,17 +1,45 @@
 module Rope {
+  const max: int
+  const min: int
+
   datatype Node<T> = Leaf(value: T) | InternalNode(children: seq<Rope<T>>)
 
   class Rope<T> {
     var val: Node<T>
     var len: int
-    var max: int
-    var min: int
-    var arr: seq<Rope<T>>
+
+    constructor Init(v: T)
+    ensures pathHasLeaf()
+    {
+      val := Leaf(v);
+      len := 0;
+    }
+
+    predicate validNumbers()
+      reads this, match this.val case InternalNode(children) => validChildrenNumber.reads(children) case Leaf(v) => validChildrenNumber.reads([])
+    {
+      // valid root
+      match this.val
+      case Leaf(v) => true
+      case InternalNode(children) =>
+        |children| <= max && this.validChildrenNumber(children)
+    }
+
+    predicate validChildrenNumber(children: seq<Rope<T>>)
+      reads this, children
+      decreases |children|
+    {
+      if |children| == 0 then true
+      else
+        match children[0].val
+          case Leaf(v) => true
+          case InternalNode(c) => this.validChildrenNumber(children[1..])
+    }
 
     predicate pathsHaveLeaves(c: seq<Rope<T>>)
       reads c
     {
-      if |c| <= 0 then false
+      if |c| == 0 then false
       else
         match c[0].val
         case Leaf(v) => true
@@ -30,6 +58,7 @@ module Rope {
 }
 
 
+----
 
 
 
@@ -60,6 +89,26 @@ module Rope {
         if |children| <= 0 then 0
         else sum(children)
     }
+  }
+}
+
+
+class Node {
+  ghost var Contents: set<int>
+  ghost var Repr: set<object>
+
+  var data: int
+  var nodes: set<Node>
+
+  predicate Valid()
+    reads this, Repr
+  {
+    this in Repr &&
+    (|nodes| > 0 ==>
+      forall n :: n in nodes ==> n in Repr && n.Repr <= Repr && this !in n.Repr && n.Valid()
+    ) &&
+    (|nodes| == 0 ==>
+      Contents == {data})
   }
 }
 
