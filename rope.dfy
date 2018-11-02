@@ -1,7 +1,6 @@
 // Basically a binary tree with Strings as leaves and len
 // Based on https://github.com/Microsoft/dafny/blob/master/Test/dafny1/BinaryTree.dfy
 
-
 datatype Node = Leaf(value: string) | InternalNode(left: Rope, right: Rope)
 
 class Rope {
@@ -21,7 +20,7 @@ class Rope {
     Content := {v};
   }
 
-  function Len(): int
+  function method Len(): int
     requires Valid()
     reads Repr
     decreases Repr
@@ -29,6 +28,27 @@ class Rope {
     match this.val
     case Leaf(v) => |v|
     case InternalNode(left, right) => left.Len() + right.Len()
+  }
+
+  method Index(i: int) returns (charAtIndex: string)
+    requires Valid()
+    ensures charAtIndex != "" ==> i >= 0 && this.Len() > i
+    //ensures charAtIndex == "" ==> i < 0 || this.Len() <= i
+    decreases Repr
+  {
+
+    if i >= 0 && this.Len() > i
+      {
+        match this.val
+        case Leaf(v) => charAtIndex := [v[i]];
+        case InternalNode(left, right) =>
+          if this.Len() <= i
+            { charAtIndex := right.Index(i - this.Len()); }
+          else
+            { charAtIndex := left.Index(i); }
+      }
+    else
+      { charAtIndex := ""; }
   }
 
   predicate ValidLen()
