@@ -59,6 +59,50 @@ class Rope {
     )
   }
 
+  method Delete(i: int, j: int) returns (newRope: Rope?)
+    requires Valid()
+    requires ValidLen()
+    ensures newRope != null ==> newRope.Valid()
+    ensures newRope != null ==> newRope.ValidLen()
+    ensures j < i ==> newRope == null
+    ensures i < 0 || i >= this.Len() || j < j || j >= this.Len() ==> newRope == null
+    //ensures i == 0 && j == this.Len() - 1 && newRope != null ==> newRope.len == 0
+    // todo: len
+  {
+    if i < 0 || j < 0 || i >= this.Len() || j >= this.Len() || i > j
+      {
+        newRope := null;
+      }
+    else
+      {
+        var newLeft, _ := this.Split(i);
+        var _, newRight := this.Split(j);
+
+        if newLeft == null
+          {
+            if newRight == null
+              {
+                newRope := new Rope.Init();
+              }
+            else
+              {
+                newRope := newRight;
+              }
+          }
+        else
+          {
+            if newRight == null
+              {
+                newRope := newLeft;
+              }
+            else
+              {
+                newRope := newLeft.Concat(newRight);
+              }
+          }
+      }
+  }
+
   method Insert(i: int, s: string) returns (newRope: Rope?)
     requires Valid()
     requires ValidLen()
@@ -67,6 +111,7 @@ class Rope {
     ensures newRope != null ==> newRope.Valid()
     ensures newRope != null ==> newRope.ValidLen()
     ensures i < 0 || i >= this.Len() <==> newRope == null
+//    ensures newRope != null ==> newRope.Len() >= this.Len() [todo]
   {
     if i < 0
       {
