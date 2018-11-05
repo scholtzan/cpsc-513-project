@@ -59,6 +59,25 @@ class Rope {
     )
   }
 
+  function method Report(): string
+    requires Valid()
+    requires ValidLen()
+    reads Repr
+    decreases Repr
+    ensures |this.Report()| == this.Len()
+  {
+    if this.Len() == 0 then ""
+    else
+      match this.val
+      case Leaf(v) => v
+      case InternalNode(left, right) =>
+        if left != null && right != null then left.Report() + right.Report()
+        else if left == null && right != null then right.Report()
+        else if left != null && right == null then left.Report()
+        else if left == null && right == null then ""
+        else ""
+  }
+
   method Delete(i: int, j: int) returns (newRope: Rope?)
     requires Valid()
     requires ValidLen()
