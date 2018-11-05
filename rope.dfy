@@ -55,11 +55,60 @@ class Rope {
         ) &&
         (right != null ==>
           right in this.Repr && this.Repr >= right.Repr && this !in right.Repr && right.Valid()
-        ) &&
-        (left != null && right != null ==>
-          left.Repr !! right.Repr
         )
     )
+  }
+
+  method Insert(i: int, s: string) returns (newRope: Rope?)
+    requires Valid()
+    requires ValidLen()
+    ensures Valid()
+    ensures ValidLen()
+    ensures newRope != null ==> newRope.Valid()
+    ensures newRope != null ==> newRope.ValidLen()
+    ensures i < 0 || i >= this.Len() <==> newRope == null
+  {
+    if i < 0
+      {
+        newRope := null;
+      }
+    else if i >= this.Len()
+      {
+        newRope := null;
+      }
+    else
+      {
+        var insertedLeaf := new Rope.Init();
+        insertedLeaf.val := Leaf(s);
+        insertedLeaf.len := |s|;
+
+        var leftSplit, rightSplit := this.Split(i);
+
+        if leftSplit == null
+          {
+            if rightSplit == null
+              {
+                newRope := insertedLeaf;
+              }
+            else
+              {
+                newRope := insertedLeaf.Concat(rightSplit);
+              }
+          }
+        else
+          {
+            var leftConcat := leftSplit.Concat(insertedLeaf);
+
+            if rightSplit != null
+              {
+                newRope := leftConcat.Concat(rightSplit);
+              }
+            else
+              {
+                newRope := leftConcat;
+              }
+          }
+      }
   }
 
   method Split(i: int) returns (leftSplit: Rope?, rightSplit: Rope?)
@@ -69,8 +118,10 @@ class Rope {
     ensures rightSplit != null ==> rightSplit.Valid()
     ensures rightSplit != null ==> rightSplit.ValidLen()
     ensures leftSplit != null ==> leftSplit.ValidLen()
+    ensures i >= 0 && i < this.Len() ==> leftSplit != null || rightSplit != null
+    ensures i <= 0 ==> leftSplit == null
+    ensures i > 0 && i >= this.Len() ==> rightSplit == null
     decreases Repr
-    // ensures something based on i
   {
     if i <= 0
       {
@@ -152,31 +203,28 @@ class Rope {
 
               var leftNode := new Rope.Init();
               leftNode.val := InternalNode(left, postLeft);
+              leftNode.len := 0;
 
               if postLeft != null
                 {
                   if left != null
                     {
-                      leftNode.Repr := {this} + left.Repr + postLeft.Repr;
+                      leftNode.Repr := leftNode.Repr + left.Repr + postLeft.Repr;
+                      leftNode.len := left.Len();
                     }
                   else
                     {
-                      leftNode.Repr := {this};
+                      leftNode.Repr := leftNode.Repr + postLeft.Repr;
                     }
                 }
               else
                 {
                   if left != null
                     {
-                      leftNode.Repr := {this} + left.Repr;
-                    }
-                  else
-                    {
-                      leftNode.Repr := {this};
+                      leftNode.Repr := leftNode.Repr + left.Repr;
+                      leftNode.len := left.Len();
                     }
                 }
-
-              leftNode.len := this.len;
 
               leftSplit := leftNode;
 
@@ -190,7 +238,7 @@ class Rope {
     requires ValidLen()
     requires rope.Valid()
     requires rope.ValidLen()
-    requires this.Repr !! rope.Repr   // prevents cycles and concatenating the same rope with itself [todo?]
+    //requires this.Repr !! rope.Repr   // prevents cycles and concatenating the same rope with itself [todo?]
     ensures concatenatedRope.Valid()
     ensures concatenatedRope.ValidLen()
   {
