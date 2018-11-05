@@ -62,6 +62,129 @@ class Rope {
     )
   }
 
+  method Split(i: int) returns (leftSplit: Rope?, rightSplit: Rope?)
+    requires Valid()
+    requires ValidLen()
+    ensures leftSplit != null ==> leftSplit.Valid()
+    ensures rightSplit != null ==> rightSplit.Valid()
+    ensures rightSplit != null ==> rightSplit.ValidLen()
+    ensures leftSplit != null ==> leftSplit.ValidLen()
+    decreases Repr
+    // ensures something based on i
+  {
+    if i <= 0
+      {
+        leftSplit := null;
+        rightSplit := this;
+      }
+    else if i >= this.Len()
+      {
+        leftSplit := this;
+        rightSplit := null;
+      }
+    else
+      {
+        match this.val
+        case Leaf(v) =>
+          var rightNode := new Rope.Init();
+          rightNode.val := Leaf(v[i..]);
+          rightNode.len := |v[i..]|;
+          rightNode.Repr := {rightNode};
+          rightSplit := rightNode;
+
+          var leftLeaf := new Rope.Init();
+          leftLeaf.val := Leaf(v[0..i]);
+          leftLeaf.len := |v[0..i]|;
+          leftLeaf.Repr := {leftLeaf};
+
+          var leftNode := new Rope.Init();
+          leftNode.val := InternalNode(leftLeaf, null);
+          leftNode.Repr := {leftNode, leftLeaf};
+          leftNode.len := leftLeaf.Len();
+          leftSplit := leftNode;
+
+        case InternalNode(left, right) =>
+          if this.len >= i
+            {
+              var postLeft, postRight := left.Split(i);
+
+              if postRight != null
+                {
+                  var rightParent := new Rope.Init();
+                  rightParent.val := InternalNode(postRight, right);
+                  rightParent.len := postRight.Len();
+
+                  if right != null
+                    {
+                      rightParent.Repr := rightParent.Repr + postRight.Repr + right.Repr;
+                    }
+                  else
+                    {
+                      rightParent.Repr := rightParent.Repr + postRight.Repr;
+                    }
+
+                  rightSplit := rightParent;
+                }
+             else
+                {
+                   rightSplit := right;
+                }
+
+              var leftNode := new Rope.Init();
+              leftNode.val := InternalNode(postLeft, null);
+
+              if postLeft != null
+                {
+                  leftNode.Repr := leftNode.Repr + postLeft.Repr;
+                  leftNode.len := postLeft.Len();
+                }
+              else
+                {
+                  leftNode.Repr := leftNode.Repr;
+                  leftNode.len := 0;
+                }
+
+              leftSplit := leftNode;
+            }
+          else
+            {
+              var postLeft, postRight := right.Split(i);
+
+              var leftNode := new Rope.Init();
+              leftNode.val := InternalNode(left, postLeft);
+
+              if postLeft != null
+                {
+                  if left != null
+                    {
+                      leftNode.Repr := {this} + left.Repr + postLeft.Repr;
+                    }
+                  else
+                    {
+                      leftNode.Repr := {this};
+                    }
+                }
+              else
+                {
+                  if left != null
+                    {
+                      leftNode.Repr := {this} + left.Repr;
+                    }
+                  else
+                    {
+                      leftNode.Repr := {this};
+                    }
+                }
+
+              leftNode.len := this.len;
+
+              leftSplit := leftNode;
+
+              rightSplit := postRight;
+            }
+      }
+  }
+
   method Concat(rope: Rope) returns (concatenatedRope: Rope)
     requires Valid()
     requires ValidLen()
