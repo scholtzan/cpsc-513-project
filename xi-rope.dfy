@@ -16,6 +16,7 @@ module Rope {
 
     constructor Init()
       ensures Valid()
+      ensures ValidLen()
     {
       val := Leaf("");
       len := 0;
@@ -56,17 +57,17 @@ module Rope {
       this in Repr &&
       (
         match this.val
-        case Leaf(v) => |v| <= MAX_LEAF_LEN
+        case Leaf(v) => |v| <= MAX_LEAF_LEN && Content == [v]
         case InternalNode(children) =>
           (HasParent ==>
             |children| >= MIN_CHILDREN &&
             |children| <= MAX_CHILDREN &&
-            forall c: Rope :: c in children ==> c in Repr && this !in c.Repr && c.Repr <= Repr && c.Valid()
+            forall c: Rope :: c in children ==> c in Repr && this !in c.Repr && c.Repr <= Repr && c.Valid() && c.Content <= Content
           ) &&
           (!HasParent ==>
             |children| >= 2 &&
             |children| <= MAX_CHILDREN &&
-            forall c: Rope :: c in children ==> c in Repr && this !in c.Repr && c.Repr <= Repr && c.Valid()
+            forall c: Rope :: c in children ==> c in Repr && this !in c.Repr && c.Repr <= Repr && c.Valid() && c.Content <= Content
           )
       )
     }
