@@ -1,21 +1,53 @@
 module Rope {
-  const max: int
-  const min: int
+  const MAX_CHILDREN: nat
+  const MIN_CHILDREN: nat
+  const MAX_LEAF_LEN: nat
+  const MIN_LEAF_LEN: nat   // minimum size requirement when splitting
 
-  datatype Node<T> = Leaf(value: T) | InternalNode(children: seq<Rope<T>>)
+  datatype Node = Leaf(value: string) | InternalNode(children: seq<Rope>)
 
-  class Rope<T> {
-    ghost var Repr: set<object>
+  class Rope {
+    ghost var Repr: set<Rope>
+    ghost var Content: seq<string>
+    ghost var HasParent: bool
 
-    var val: Node<T>
+    var val: Node
     var len: int
 
-    constructor Init(v: T)
-    ensures pathHasLeaf()
+    constructor Init()
+      ensures Valid()
     {
-      val := Leaf(v);
+      val := Leaf("");
       len := 0;
       Repr := {this};
+      Content := [""];
+      HasParent := false;
+    }
+
+    function ContentLen(c: seq<string>): int
+      decreases |c|
+    {
+      if |c| == 0 then 0
+      else |c[0]| + ContentLen(c[1..])
+    }
+
+    function Len(): int
+      requires Valid()
+      reads Repr
+      decreases Repr
+    {
+      match this.val
+      case Leaf(v) => |v|
+      case InternalNode(children) => ContentLen(this.Content)
+    }
+
+    predicate ValidLen()
+      requires Valid()
+      reads this, Repr
+    {
+      match this.val
+      case Leaf(v) => this.len == |v|
+      case InternalNode(children) => this.len == this.Len()
     }
 
     predicate Valid()
@@ -24,54 +56,19 @@ module Rope {
       this in Repr &&
       (
         match this.val
-        case Leaf(v) => true
+        case Leaf(v) => |v| <= MAX_LEAF_LEN
         case InternalNode(children) =>
-          |children| >= min &&
-          |children| <= max &&
-          forall c :: c in children ==> c in Repr && this !in c.Repr &&
-          forall c :: c in children ==> c.Valid()
+          (HasParent ==>
+            |children| >= MIN_CHILDREN &&
+            |children| <= MAX_CHILDREN &&
+            forall c: Rope :: c in children ==> c in Repr && this !in c.Repr && c.Repr <= Repr && c.Valid()
+          ) &&
+          (!HasParent ==>
+            |children| >= 2 &&
+            |children| <= MAX_CHILDREN &&
+            forall c: Rope :: c in children ==> c in Repr && this !in c.Repr && c.Repr <= Repr && c.Valid()
+          )
       )
-    }
-
-
-    predicate validNumbers()
-      reads this, match this.val case InternalNode(children) => validChildrenNumber.reads(children) case Leaf(v) => validChildrenNumber.reads([])
-    {
-      // valid root
-      match this.val
-      case Leaf(v) => true
-      case InternalNode(children) =>
-        |children| <= max && this.validChildrenNumber(children)
-    }
-
-    predicate validChildrenNumber(children: seq<Rope<T>>)
-      reads this, children
-      decreases |children|
-    {
-      if |children| == 0 then true
-      else
-        match children[0].val
-          case Leaf(v) => true
-          case InternalNode(c) => this.validChildrenNumber(children[1..])
-    }
-
-    predicate pathsHaveLeaves(c: seq<Rope<T>>)
-      reads c
-    {
-      if |c| == 0 then false
-      else
-        match c[0].val
-        case Leaf(v) => true
-        case InternalNode(children) => pathsHaveLeaves(c[1..])
-    }
-
-    predicate pathHasLeaf()
-      reads this, match this.val case InternalNode(children) => pathsHaveLeaves.reads(children) case Leaf(v) => pathsHaveLeaves.reads([])
-      decreases this.val
-    {
-      match this.val
-      case Leaf(v) => true
-      case InternalNode(children) => this.pathsHaveLeaves(children)
     }
   }
 }
