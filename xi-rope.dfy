@@ -77,7 +77,7 @@ module Rope {
     method Index(i: int) returns (charAtIndex: string)
       requires Valid()
       requires ValidLen()
-      //ensures i >= 0 && i < this.len ==> charAtIndex != ""
+//      ensures i >= 0 && i < this.len ==> charAtIndex != ""
       ensures i < 0 || i >= this.len ==> charAtIndex == ""
       decreases Repr
     {
@@ -103,13 +103,58 @@ module Rope {
         }
     }
 
-//    function method SliceToString(i: int, j: int): string
-//      requires Valid()
-//      requires ValidLen()
-//      reads this
-//      // todo ensures
-//    {
-//        // todo
-//    }
+    method SliceToString(i: int, j: int) returns (slice: string)
+      requires Valid()
+      requires ValidLen()
+      ensures i < 0 || i >= this.len || j >= this.len || i > j || j < 0 ==> slice == ""
+//      ensures slice != "" ==> |slice| == j - i
+      decreases Repr
+    {
+        if i < 0 || j < 0 || i >= this.len || j >= this.len || i > j
+          {
+            slice := "";
+          }
+        else
+          {
+            match this.val
+            case Leaf(v) =>
+              slice := v[i..j];
+            case InternalNode(children) =>
+              var c := 0;
+              var newI := i;
+              var newJ := j;
+
+              while (c + 1 < |children| && children[c].len <= newI)
+              invariant 0 <= c < |children|
+              {
+                newI := newI - children[c].len;
+                newJ := newJ - children[c].len;
+                c := c + 1;
+              }
+
+              var finalSlice := "";
+
+              while (c < |children| && newJ >= 0)
+              invariant 0 <= c <= |children|
+              {
+                if newJ >= children[c].len
+                  {
+                    var s := children[c].SliceToString(newI, children[c].len - 1);
+                    finalSlice := finalSlice + s;
+                  }
+                else
+                  {
+                    var s := children[c].SliceToString(newI, newJ);
+                    finalSlice := finalSlice + s;
+                  }
+
+                newJ := newJ - children[c].len;
+                newI := 0;
+                c := c + 1;
+              }
+
+              slice := finalSlice;
+          }
+    }
   }
 }
