@@ -13,6 +13,7 @@ module Rope {
 
     var val: Node
     var len: int
+    var height: int
 
     constructor Init()
       ensures Valid()
@@ -20,9 +21,50 @@ module Rope {
     {
       val := Leaf("");
       len := 0;
+      height := 0;
       Repr := {this};
       Content := [""];
       HasParent := false;
+    }
+
+
+    constructor FromNodes(nodes: seq<Rope>)
+//      requires forall c: Rope :: c in nodes ==> c.ValidLen()
+//      requires |nodes| >= MIN_CHILDREN && |nodes| <= MAX_CHILDREN
+//      ensures match this.val case Leaf(c) => true case InternalNode(children) => forall c: Rope :: c in children ==> c.HasParent
+//      ensures Valid()
+//      ensures ValidLen()
+      modifies nodes
+    {
+      var i := 0;
+      Content := [];
+      Repr := {};
+      HasParent := false;
+      var totalLen := 0;
+      var tmpNodes: seq<Rope> := [];
+
+      while i < |nodes|
+      {
+        totalLen := totalLen + nodes[i].len;
+        Content := Content + nodes[i].Content;
+        var c := new Rope.Init();
+        c.len := nodes[i].len;
+        c.HasParent := true;
+        c.Content := nodes[i].Content;
+        c.Repr := c.Repr + nodes[i].Repr - {nodes[i]};
+        Repr := Repr + c.Repr;
+
+        tmpNodes := tmpNodes + [c];
+
+//        nodes[i].HasParent := true;
+//        Repr := Repr + nodes[i].Repr;
+
+        i := i + 1;
+      }
+
+      len := totalLen;
+      val := InternalNode(tmpNodes);
+      Repr := Repr + {this};
     }
 
     function ContentLen(c: seq<string>): int
@@ -48,7 +90,7 @@ module Rope {
     {
       match this.val
       case Leaf(v) => this.len == |v| && ContentLen(this.Content) == |v| && |Content| == 1
-      case InternalNode(children) => this.len == this.Len() && forall c: Rope :: c in children ==> c.len <= this.len && c.ValidLen()
+      case InternalNode(children) => this.len == this.Len() && this.len >= 0 && forall c: Rope :: c in children ==> c.len <= this.len && c.ValidLen()
     }
 
     predicate Valid()
@@ -59,17 +101,18 @@ module Rope {
       this in Repr &&
       (
         match this.val
-        case Leaf(v) => |v| <= MAX_LEAF_LEN && Content == [v]
+        case Leaf(v) => |v| <= MAX_LEAF_LEN && Content == [v] && height == 0
         case InternalNode(children) =>
+          height >= 0 &&
           (HasParent ==>
             |children| >= MIN_CHILDREN &&
             |children| <= MAX_CHILDREN &&
-            forall c: Rope :: c in children ==> c in Repr && this !in c.Repr && c.Repr <= Repr && c.Valid() && c.Content <= Content && forall cont: string :: cont in c.Content ==> cont in this.Content
+            forall c: Rope :: c in children ==> c in Repr && this !in c.Repr && c.Repr < Repr && c.Valid() && c.height == height - 1 && c.Content <= Content && forall cont: string :: cont in c.Content ==> cont in this.Content
           ) &&
           (!HasParent ==>
             |children| >= 2 &&
             |children| <= MAX_CHILDREN &&
-            forall c: Rope :: c in children ==> c in Repr && this !in c.Repr && c.Repr <= Repr && c.Valid() && c.Content <= Content && forall cont: string :: cont in c.Content ==> cont in this.Content
+            forall c: Rope :: c in children ==> c in Repr && this !in c.Repr && c.Repr < Repr && c.Valid() && c.height == height - 1 && c.Content <= Content && forall cont: string :: cont in c.Content ==> cont in this.Content
           )
       )
     }
