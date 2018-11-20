@@ -1,0 +1,13 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{Motivation}{3}{0}{1}
+\beamer@sectionintoc {2}{Background}{5}{0}{2}
+\beamer@subsectionintoc {2}{1}{Xi-Editor}{6}{0}{2}
+\beamer@subsectionintoc {2}{2}{Rope Data Structures}{7}{0}{2}
+\beamer@subsectionintoc {2}{3}{Rope Data Structure in Xi-Editor}{8}{0}{2}
+\beamer@sectionintoc {3}{Verifying Ropes}{9}{0}{3}
+\beamer@subsectionintoc {3}{1}{Dafny}{11}{0}{3}
+\beamer@subsectionintoc {3}{2}{Properties Standard Rope}{12}{0}{3}
+\beamer@subsectionintoc {3}{3}{Standard Rope Verification}{13}{0}{3}
+\beamer@subsectionintoc {3}{4}{Properties Xi-Editor Rope}{16}{0}{3}
+\beamer@subsectionintoc {3}{5}{Xi-Editor Rope Verification}{17}{0}{3}
+\beamer@sectionintoc {4}{Future Work}{21}{0}{4}
