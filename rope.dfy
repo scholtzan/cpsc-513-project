@@ -4,10 +4,10 @@ module Rope {
   class Rope {
 
     ghost var Repr: set<object>
-  
+
     var len: int
     var val: Node
-  
+
     constructor Init()
     ensures Valid()
     ensures ValidLen()
@@ -16,7 +16,7 @@ module Rope {
       len := 0;
       Repr := {this};
     }
-  
+
     function method Len(): int
       requires Valid()
       reads Repr
@@ -31,7 +31,7 @@ module Rope {
         else if left == null && right == null then 0
         else 0
     }
-  
+
     predicate ValidLen()
       requires Valid()
       reads this, Repr
@@ -43,7 +43,7 @@ module Rope {
         (left == null ==> this.len == 0) &&
         (right != null ==> right.ValidLen())
     }
-  
+
     predicate Valid()
       reads this, Repr
     {
@@ -60,7 +60,7 @@ module Rope {
           )
       )
     }
-  
+
     function method Report(): string
       requires Valid()
       requires ValidLen()
@@ -79,7 +79,7 @@ module Rope {
           else if left == null && right == null then ""
           else ""
     }
-  
+
     method Delete(i: int, j: int) returns (newRope: Rope?)
       requires Valid()
       requires ValidLen()
@@ -98,7 +98,7 @@ module Rope {
         {
           var newLeft, _ := this.Split(i);
           var _, newRight := this.Split(j);
-  
+
           if newLeft == null
             {
               if newRight == null
@@ -123,7 +123,7 @@ module Rope {
             }
         }
     }
-  
+
     method Insert(i: int, s: string) returns (newRope: Rope?)
       requires Valid()
       requires ValidLen()
@@ -147,9 +147,9 @@ module Rope {
           var insertedLeaf := new Rope.Init();
           insertedLeaf.val := Leaf(s);
           insertedLeaf.len := |s|;
-  
+
           var leftSplit, rightSplit := this.Split(i);
-  
+
           if leftSplit == null
             {
               if rightSplit == null
@@ -164,7 +164,7 @@ module Rope {
           else
             {
               var leftConcat := leftSplit.Concat(insertedLeaf);
-  
+
               if rightSplit != null
                 {
                   newRope := leftConcat.Concat(rightSplit);
@@ -176,7 +176,7 @@ module Rope {
             }
         }
     }
-  
+
     method Split(i: int) returns (leftSplit: Rope?, rightSplit: Rope?)
       requires Valid()
       requires ValidLen()
@@ -208,29 +208,29 @@ module Rope {
             rightNode.len := |v[i..]|;
             rightNode.Repr := {rightNode};
             rightSplit := rightNode;
-  
+
             var leftLeaf := new Rope.Init();
             leftLeaf.val := Leaf(v[0..i]);
             leftLeaf.len := |v[0..i]|;
             leftLeaf.Repr := {leftLeaf};
-  
+
             var leftNode := new Rope.Init();
             leftNode.val := InternalNode(leftLeaf, null);
             leftNode.Repr := {leftNode, leftLeaf};
             leftNode.len := leftLeaf.Len();
             leftSplit := leftNode;
-  
+
           case InternalNode(left, right) =>
             if this.len >= i
               {
                 var postLeft, postRight := left.Split(i);
-  
+
                 if postRight != null
                   {
                     var rightParent := new Rope.Init();
                     rightParent.val := InternalNode(postRight, right);
                     rightParent.len := postRight.Len();
-  
+
                     if right != null
                       {
                         rightParent.Repr := rightParent.Repr + postRight.Repr + right.Repr;
@@ -239,17 +239,17 @@ module Rope {
                       {
                         rightParent.Repr := rightParent.Repr + postRight.Repr;
                       }
-  
+
                     rightSplit := rightParent;
                   }
                else
                   {
                      rightSplit := right;
                   }
-  
+
                 var leftNode := new Rope.Init();
                 leftNode.val := InternalNode(postLeft, null);
-  
+
                 if postLeft != null
                   {
                     leftNode.Repr := leftNode.Repr + postLeft.Repr;
@@ -260,17 +260,17 @@ module Rope {
                     leftNode.Repr := leftNode.Repr;
                     leftNode.len := 0;
                   }
-  
+
                 leftSplit := leftNode;
               }
             else
               {
                 var postLeft, postRight := right.Split(i);
-  
+
                 var leftNode := new Rope.Init();
                 leftNode.val := InternalNode(left, postLeft);
                 leftNode.len := 0;
-  
+
                 if postLeft != null
                   {
                     if left != null
@@ -291,14 +291,14 @@ module Rope {
                         leftNode.len := left.Len();
                       }
                   }
-  
+
                 leftSplit := leftNode;
-  
+
                 rightSplit := postRight;
               }
         }
     }
-  
+
     method Concat(rope: Rope) returns (concatenatedRope: Rope)
       requires Valid()
       requires ValidLen()
@@ -313,7 +313,7 @@ module Rope {
       concatenatedRope.len := this.Len();
       concatenatedRope.Repr := concatenatedRope.Repr + this.Repr + rope.Repr;
     }
-  
+
     method Index(i: int) returns (charAtIndex: string)
       requires Valid()
       requires ValidLen()
