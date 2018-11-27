@@ -156,7 +156,7 @@
       \item Xi-editor: combines newer concepts for storing text to allow very high performance
       \item Core idea: modified rope data structure for storing text as well as edit history
     \end{itemize}
-    \item \textbf{Goal:} Verification of the rope datastructure in xi-editor  %[why?]
+    \item \textbf{Goal:} Verification of the rope data structure in xi-editor  %[why?]
   \end{itemize}
 \end{frame}
 
@@ -202,7 +202,7 @@
 \begin{frame}{Rope Data Structure in Xi-Editor}
   \begin{itemize}
       \item B-Tree
-      \item Operations: Concatenate, Slice, Insert
+      \item Operations: Concatenate, Slice, Insert, SliceToString
   \end{itemize}
   \begin{figure}
       \centering
@@ -252,7 +252,7 @@
 
 \subsection{Properties Standard Rope}
 
-\begin{frame}{Properties Xi-Editor Rope}
+\begin{frame}{Properties Standard Rope}
     \begin{enumerate}
         \item Every node has at most two children
         \item Only leaves contain data
@@ -307,7 +307,7 @@
 
 \subsection{Properties Xi-Editor Rope}
 
-\begin{frame}{Properties Standard Rope}
+\begin{frame}{Properties Xi-Editor Rope}
   \begin{enumerate}
       \item Every node has at most $MAX\_CHILDREN$ children
       \item Every non-leaf node, except the root node, has at least $MIN\_CHILDREN$ child nodes
@@ -335,7 +335,17 @@
   Validity Conditions:
 
   \begin{figure}
-      \includegraphics[width=8cm]{images/xi-rope-valid.png}
+      \includegraphics[width=10.5cm]{images/xi-rope-valid.png}
+  \end{figure}
+
+\end{frame}
+
+
+\begin{frame}{Xi-Editor Rope Verification}
+  Validity Conditions:
+
+  \begin{figure}
+      \includegraphics[width=10cm]{images/xi-rope-non-valid-root.png}
   \end{figure}
 
 \end{frame}
@@ -345,7 +355,7 @@
 
   \begin{figure}
       \centering
-      \includegraphics[width=8.5cm]{images/xi-rope-valid-len.png}
+      \includegraphics[width=9.5cm]{images/xi-rope-valid-len.png}
   \end{figure}
 \end{frame}
 
