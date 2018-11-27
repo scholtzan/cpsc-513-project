@@ -1,0 +1,87 @@
+\documentclass[sigconf]{acmart}
+
+\usepackage{amssymb}          % some missing math symbols
+\usepackage{amsmath}          % improved math environment
+\usepackage{graphicx}         % use graphics in document
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[autostyle]{csquotes}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{cleveref}         % add context-specific names before reference, e.g., Figure or
+\usepackage{listings}         % illustration of source code snippets
+\lstset
+{ %Formatting for code in appendix
+    basicstyle=\footnotesize,
+    numbers=left,
+    stepnumber=1,
+    showstringspaces=false,
+    tabsize=1,
+    breaklines=true,
+    xleftmargin=5.0ex,
+    breakatwhitespace=false,
+}
+\usepackage{microtype}        % improved text alignment, letter arrangement etc.
+\usepackage{xspace}           % spacing
+
+% definition of commonly used abbreviations like e.g., i.e., etc.
+\newcommand*{\eg}{e.g.,\@\xspace}
+\newcommand*{\ie}{i.e.,\@\xspace}
+\newcommand*{\cf}{cf.\@\xspace}
+\newcommand*{\etal}{et~al.\@\xspace}
+\newcommand*{\etc}{etc.\@\xspace}
+
+% circled number
+\newcommand{\numbercircled}[1]{\textcircled{\raisebox{-0.9pt}{#1}}}
+
+\begin{document}
+
+\title{Verifying the Rope Data Structure of Xi-Editor}
+
+
+\author{Anna Scholtz}
+\affiliation{%
+  \institution{University of British Columbia}
+  %\city{Vancouver}
+  %\state{Canada}
+}
+\email{ascholtz@cs.ubc.ca}
+
+
+
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+
+%\ccsdesc[2.8]{D.2.8 [Software Engineering]: Design Tools and Techniques - Software libraries}
+
+
+\keywords{Formal Verification, Dafny, Rope Datastructure}
+
+
+\maketitle
+
+\section{Introduction}
+\label{sec:introduction}
+\input{introduction}
+
+\section{Evaluation}
+\label{sec:evaluation}
+\input{evaluation}
+
+\section{Related Work}
+\label{sec:related-work}
+\input{related-work}
+
+\section{Future Work}
+\label{sec:future-work}
+\input{future-work}
+
+
+\section{Conclusion}
+\label{sec:conclusion}
+\input{conclusion}
+
+\bibliographystyle{abbrv}
+\bibliography{paper}
+
+\end{document}
