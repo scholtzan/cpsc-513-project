@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.11.5)  27 NOV 2018 10:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.11.5)  29 NOV 2018 13:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1246,11 +1246,11 @@ Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: CEFD344F51E0221BB3C563438BF0C040;739.
  ) 
 Here is how much of TeX's memory you used:
- 20458 strings out of 493014
- 318068 string characters out of 6133351
- 458552 words of memory out of 5000000
+ 20470 strings out of 493014
+ 318359 string characters out of 6133351
+ 459552 words of memory out of 5000000
  23461 multiletter control sequences out of 15000+600000
- 69863 words of font info for 85 fonts, out of 8000000 for 9000
+ 70947 words of font info for 93 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  60i,11n,94p,796b,476s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc
@@ -1260,7 +1260,7 @@ Here is how much of TeX's memory you used:
 fb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinLibertin
 eT.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinLibe
 rtineTB.pfb>
-Output written on paper.pdf (1 page, 219195 bytes).
+Output written on paper.pdf (1 page, 220837 bytes).
 PDF statistics:
  67 PDF objects out of 1000 (max. 8388607)
  53 compressed objects within 1 object stream
