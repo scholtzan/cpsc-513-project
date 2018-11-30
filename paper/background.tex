@@ -1,0 +1,53 @@
+In the following we will provide some background information about xi-editor and details about the rope data structure that is used in xi-editor to store text.
+
+\subsection{Xi-Editor}
+
+Xi-Editor~\cite{xi} is a text editor, that is currently in its early development stages, with a backend written in Rust. 
+It is designed to be high-performant, reliable, developer friendly and supports frontends implemented in any language.
+For storing and processing text, xi-editor is using a specially adapted rope data structure.
+The editor is also designed to work in a collaborative environment with multiple users editing the same text. 
+However, this functionality has not been implemented, yet.
+
+\subsection{Rope Data Structure}
+
+Rope data structures~\cite{boehm1995ropes} are used for storing text in a way that common text operations, such as insertions or deletions, can be performed in a more performant way.
+Essentially, a rope is a binary tree in which only leaf nodes contain data. 
+Each node has a weight value associated. 
+The weight value for leaf nodes is equal to the length of the text value stored.
+Weight values for internal nodes are the sum of the weights of the nodes of the left subtree.
+\Cref{fig:rope} shows a simplified example of how text can be stored in a rope.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{"figures/rope"}
+\caption{Example of text stored in a standard rope.}
+\label{fig:rope}
+\end{figure}
+
+Xi-Editor uses a slightly modified rope data structure.
+Instead of having a structure similar to a binary tree, in xi-editor the rope data structure is based on a B-tree.
+A simplified example of what this data structure looks like is depicted in~\Cref{fig:xi-rope}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{"figures/xi-rope"}
+\caption{Text stored in a rope used in xi-editor.}
+\label{fig:xi-rope}
+\end{figure}
+
+Just like the standard rope data structure, the rope used in xi-editor only stores the text values in the leaf nodes.
+Internal nodes can have multiple children.
+The node weight, also referred to as length in xi, for leaf nodes is again the length of the stored text and for internal nodes the weight is, unlike in the standard rope, the sum of the weights of all child nodes.
+Xi-Editor adds another attribute to the nodes which indicates the height of the node.
+This attribute is used for balancing the B-tree and making sure that leaves are at the same level.
+
+\subsection{Dafny}
+
+We are using the language and verifier Dafny~\cite{leino2010dafny} for verifying the functional correctness and defining the specification of the rope data structure.
+Dafny is an imperative, sequential language that supports verification through pre-conditions, post-conditions and loop invariants.
+Programs written in Dafny are first translated into the verification language Boogie 2 which is then used to generate first-order verification conditions that are passed to the SMT solver Z3.
+
+Dafny allows to annotate implemented methods to ensure that certain properties hold.
+Supported annotations that are commonly used are post- and pre-conditions which can be added to the method's declaration, assertions which can be inserted within code and loop invariants.
+A full documentation of the dafny syntax and supported annotations is available at~\cite{dafnyManual}.
+
