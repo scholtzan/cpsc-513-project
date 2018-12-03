@@ -1,0 +1,24 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{predicate} \PYG{n+nf}{Valid}\PYG{p}{()}
+  \PYG{n}{reads} \PYG{k}{this}\PYG{p}{,} \PYG{n}{Repr}
+\PYG{p}{\PYGZob{}}
+  \PYG{k}{this} \PYG{k}{in} \PYG{n}{Repr} \PYG{p}{\PYGZam{}\PYGZam{}}
+  \PYG{p}{(}
+    \PYG{n}{match} \PYG{k}{this}\PYG{p}{.}\PYG{n}{val}
+    \PYG{k}{case} \PYG{n+nf}{Leaf}\PYG{p}{(}\PYG{n}{v}\PYG{p}{)} \PYG{p}{=\PYGZgt{}} \PYG{k}{true}
+    \PYG{k}{case} \PYG{n+nf}{InternalNode}\PYG{p}{(}\PYG{n}{left}\PYG{p}{,} \PYG{n}{right}\PYG{p}{)} \PYG{p}{=\PYGZgt{}}
+      \PYG{p}{(}\PYG{n}{left} \PYG{p}{!=} \PYG{k}{null} \PYG{p}{==\PYGZgt{}}
+        \PYG{n}{left} \PYG{k}{in} \PYG{k}{this}\PYG{p}{.}\PYG{n}{Repr} \PYG{p}{\PYGZam{}\PYGZam{}}
+        \PYG{k}{this}\PYG{p}{.}\PYG{n}{Repr} \PYG{p}{\PYGZgt{}=} \PYG{n}{left}\PYG{p}{.}\PYG{n}{Repr} \PYG{p}{\PYGZam{}\PYGZam{}}
+        \PYG{k}{this} \PYG{p}{!}\PYG{k}{in} \PYG{n}{left}\PYG{p}{.}\PYG{n}{Repr} \PYG{p}{\PYGZam{}\PYGZam{}}
+        \PYG{n}{left}\PYG{p}{.}\PYG{n}{Valid}\PYG{p}{()}
+      \PYG{p}{)} \PYG{p}{\PYGZam{}\PYGZam{}}
+      \PYG{p}{(}\PYG{n}{right} \PYG{p}{!=} \PYG{k}{null} \PYG{p}{==\PYGZgt{}}
+        \PYG{n}{right} \PYG{k}{in} \PYG{k}{this}\PYG{p}{.}\PYG{n}{Repr} \PYG{p}{\PYGZam{}\PYGZam{}}
+        \PYG{k}{this}\PYG{p}{.}\PYG{n}{Repr} \PYG{p}{\PYGZgt{}=} \PYG{n}{right}\PYG{p}{.}\PYG{n}{Repr} \PYG{p}{\PYGZam{}\PYGZam{}}
+        \PYG{k}{this} \PYG{p}{!}\PYG{k}{in} \PYG{n}{right}\PYG{p}{.}\PYG{n}{Repr} \PYG{p}{\PYGZam{}\PYGZam{}}
+        \PYG{n}{right}\PYG{p}{.}\PYG{n}{Valid}\PYG{p}{()}
+      \PYG{p}{)}
+  \PYG{p}{)}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

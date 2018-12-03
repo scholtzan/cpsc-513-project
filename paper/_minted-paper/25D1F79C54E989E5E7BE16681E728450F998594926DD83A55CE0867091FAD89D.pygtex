@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{datatype} \PYG{n}{Node} \PYG{p}{=} \PYG{n}{Leaf}\PYG{p}{(}\PYG{n}{val}\PYG{p}{:} \PYG{k+kt}{string}\PYG{p}{)} \PYG{p}{|}
+    \PYG{n}{InternalNode}\PYG{p}{(}\PYG{n}{left}\PYG{p}{:} \PYG{n}{Rope}\PYG{p}{?,} \PYG{n}{right}\PYG{p}{:} \PYG{n}{Rope}\PYG{p}{?)}
+
+\PYG{k}{class} \PYG{n+nc}{Rope} \PYG{p}{\PYGZob{}}
+  \PYG{n}{ghost} \PYG{k+kt}{var} \PYG{n}{Repr}\PYG{p}{:} \PYG{k}{set}\PYG{p}{\PYGZlt{}}\PYG{k+kt}{object}\PYG{p}{\PYGZgt{}}
+
+  \PYG{k+kt}{var} \PYG{n}{len}\PYG{p}{:} \PYG{k+kt}{int}
+  \PYG{k+kt}{var} \PYG{n}{val}\PYG{p}{:} \PYG{n}{Node}
+  \PYG{c+c1}{// [...]}
+\end{Verbatim}

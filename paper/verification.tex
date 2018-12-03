@@ -1,0 +1,153 @@
+This section describes the techniques applied to verify the standard rope data structure and the rope data structe used in xi-editor.
+We provide a specification, an overview of how the operations and data structure are validated and verification results for each implementation.
+For clarity, the specification will be stated as an English text and then transformed into code annotations.
+
+We employed a Floyd-Hoare style approach to verify that the implementation of the rope data structure matches the specification.
+Since Xi-editor is implemented in Rust and not compatible with Dafny by default, we implemented a simplified version of the rope data structure and operations in Dafny.
+We manually added annotations, such as pre-conditions, post-conditions and loop invariants, which could be considered as lemmas, to ensure the correctness of the original implementation.
+
+
+\subsection{Standard Rope Verification}
+
+We start with verifying the standard rope data structure because its structure and properties are simpler and will server as basis for verifying the more complex xi-editor rope.
+
+\subsubsection{Specification}
+
+The standard rope data structure used for storing text is based on a modified binary tree. 
+It has the following properties:
+
+\begin{enumerate}
+  \item \textit{Every node has at most two children.} It is also allowed that a node has only one child or no child at all.
+  \item \textit{Only leaves contain data.} The original text is split into chunks which are stored in the leaves.
+  \item \textit{Weight values of non-leaf nodes is the weights of all children in the left subtree.}
+  \item \textit{Weight values of leaf nodes is the length of the stored text.}
+\end{enumerate}
+
+\subsubsection{Verification}
+
+The rope data structure written in Dafny is shown in~\Cref{lst:rope}.
+\texttt{Rope} is a tree which consists of two node types: \texttt{Leaf} and \texttt{InternalNode}.
+\texttt{Leaf} nodes contain text slices and \texttt{InternalNode} nodes are the internal nodes that can have up to two children.
+Each node has a specific weight that is stored in the \texttt{len} attribute.
+
+
+\begin{listing}[h!]
+\begin{minted}[xleftmargin=1.5em,linenos]{csharp}
+datatype Node = Leaf(val: string) | 
+    InternalNode(left: Rope?, right: Rope?)
+
+class Rope {
+  ghost var Repr: set<object>
+
+  var len: int
+  var val: Node
+  // [...]
+\end{minted}
+    \caption{Standard rope data structure in Dafny}
+    \label{lst:rope}
+\end{listing}
+
+\texttt{Rope} has an extra attribute \texttt{Repr} which is not part of the actual implementation but only used for verification purposes and therefore denoted as \texttt{ghost} variable.
+Here, \texttt{Repr} is a set containing all the nodes that are stored in the rope.
+
+The structure of the rope is defined in the \texttt{Valid()} predicate which is shown in~\Cref{lst:rope-valid}.
+In Dafny, predicates are functions that return a boolean value and that can be used as post-conditions and pre-conditions.
+
+\begin{listing}[h!]
+\begin{minted}[xleftmargin=1.5em,linenos]{csharp}
+predicate Valid()
+  reads this, Repr
+{
+  this in Repr &&
+  (
+    match this.val
+    case Leaf(v) => true
+    case InternalNode(left, right) =>
+      (left != null ==>
+        left in this.Repr && 
+        this.Repr >= left.Repr && 
+        this !in left.Repr && 
+        left.Valid()
+      ) &&
+      (right != null ==>
+        right in this.Repr && 
+        this.Repr >= right.Repr &&
+        this !in right.Repr &&
+        right.Valid()
+      )
+  )
+}
+\end{minted}
+    \caption{Predicate to validate the structure of the rope}
+    \label{lst:rope-valid}
+\end{listing}
+
+\texttt{Valid()} recursively verifies that internal nodes have at most two child nodes and validates each of these child nodes.
+\texttt{Repr} is used as a termination measure while recursively traversing the rope.
+Child nodes have a smaller \texttt{Repr} set than their parents, and the set consists of only one element for leaf nodes.
+
+To verify that all nodes have correct weight values, we defined the predicate \texttt{ValidLen} which is depicted in~\Cref{lst:rope-valid-len}.
+It requires a valid structure of the rope and uses \texttt{Valid()} as a pre-condition to ensure this.
+
+\texttt{ValidLen()} recursively traverses the rope and verifies that the weight of leaf nodes is equal to the length of the stored text, and of internal nodes is equal to the sum of the weights of the nodes in the left subtree.
+To sum up the node weights in a subtree, we defined a helper function \texttt{Len()} that traverses the subtree and sums up weight values of the nodes.
+
+\begin{listing}[h!]
+\begin{minted}[xleftmargin=1.5em,linenos]{csharp}
+predicate ValidLen()
+  requires Valid()
+  reads this, Repr
+{
+  match this.val
+  case Leaf(v) => 
+    this.len == |v|
+  case InternalNode(left, right) =>
+    (left != null ==> 
+      this.len == left.Len() && 
+      left.ValidLen()
+    ) &&
+    (left == null ==> this.len == 0) &&
+    (right != null ==> right.ValidLen())
+}
+\end{minted}
+    \caption{Predicate to validate the weights of the nodes}
+    \label{lst:rope-valid-len}
+\end{listing}
+
+Both predicates are used as pre-conditions and post-conditions for implemented operations. 
+We added additional conditions to these implemented methods to also verify that they are working correctly.
+Operations that are currently implemented are: 
+\begin{itemize}
+  \item \texttt{Report(): string} which returns the stored text,
+  \item \texttt{Index(i: int) returns (charAtIndex: string)} which returns the character stored at index \texttt{i},
+  \item \texttt{Concat(rope: Rope) returns (concatenatedRope: Rope)} which concatenates the rope with another \texttt{rope} and returns the new resulting rope,
+  \item \texttt{Split(i: int) returns (leftSplit: Rope?, rightSplit: Rope?)} which split the rope at index \texttt{i} and returns the two resulting ropes,
+  \item \texttt{Insert(i: int, s: string) returns (newRope: Rope?)} which inserts text starting at index \texttt{i} and returns the updated rope,
+  \item \texttt{Delete(i: int, j: int) returns (newRope: Rope?)} which removes text starting at index \texttt{i} and ending at index \texttt{j} and returns the updated rope.
+\end{itemize}
+
+\Cref{lst:insert} shows the usage of the predicates as well as additional post-conditions for the \texttt{Insert()} method.
+
+\begin{listing}[h!]
+\begin{minted}[xleftmargin=1.5em,linenos]{csharp}
+method Insert(i: int, s: string) returns (newRope: Rope?)
+  requires Valid()
+  requires ValidLen()
+  ensures Valid()
+  ensures ValidLen()
+  ensures newRope != null ==> newRope.Valid()
+  ensures newRope != null ==> newRope.ValidLen()
+  ensures i < 0 || i >= this.Len() <==> newRope == null
+{ [...] }
+\end{minted}
+    \caption{Definition of \texttt{Insert()} method}
+    \label{lst:insert}
+\end{listing}
+
+Running our implementation in Dafny 2.2.0.10923 results in no errors.
+
+
+
+\subsection{Xi-Editor Rope Verification}
+
+\subsubsection{Specification}
