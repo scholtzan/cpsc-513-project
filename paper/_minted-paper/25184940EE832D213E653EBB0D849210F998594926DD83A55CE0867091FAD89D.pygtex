@@ -1,0 +1,28 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{predicate} \PYG{n+nf}{ValidNonRoot}\PYG{p}{()}
+  \PYG{n}{reads} \PYG{k}{this}\PYG{p}{,} \PYG{n}{Repr}
+  \PYG{n}{requires} \PYG{n}{MAX\PYGZus{}LEAF\PYGZus{}LEN} \PYG{p}{\PYGZgt{}=} \PYG{n}{MIN\PYGZus{}LEAF\PYGZus{}LEN}
+  \PYG{n}{requires} \PYG{n}{MIN\PYGZus{}CHILDREN} \PYG{p}{\PYGZlt{}=} \PYG{n}{MAX\PYGZus{}CHILDREN} \PYG{p}{\PYGZam{}\PYGZam{}}
+           \PYG{n}{MIN\PYGZus{}CHILDREN} \PYG{p}{\PYGZgt{}=} \PYG{l+m}{2}
+\PYG{p}{\PYGZob{}}
+  \PYG{k}{this} \PYG{k}{in} \PYG{n}{Repr} \PYG{p}{\PYGZam{}\PYGZam{}}
+  \PYG{p}{(}
+    \PYG{n}{match} \PYG{k}{this}\PYG{p}{.}\PYG{n}{val}
+    \PYG{k}{case} \PYG{n+nf}{Leaf}\PYG{p}{(}\PYG{n}{v}\PYG{p}{)} \PYG{p}{=\PYGZgt{}}
+      \PYG{p}{|}\PYG{n}{v}\PYG{p}{|} \PYG{p}{\PYGZlt{}=} \PYG{n}{MAX\PYGZus{}LEAF\PYGZus{}LEN} \PYG{p}{\PYGZam{}\PYGZam{}}
+      \PYG{n}{Content} \PYG{p}{==} \PYG{p}{[}\PYG{n}{v}\PYG{p}{]} \PYG{p}{\PYGZam{}\PYGZam{}}
+      \PYG{n}{height} \PYG{p}{==} \PYG{l+m}{0}
+    \PYG{k}{case} \PYG{n+nf}{InternalNode}\PYG{p}{(}\PYG{n}{children}\PYG{p}{)} \PYG{p}{=\PYGZgt{}}
+      \PYG{n}{height} \PYG{p}{\PYGZgt{}=} \PYG{l+m}{0} \PYG{p}{\PYGZam{}\PYGZam{}}
+      \PYG{p}{|}\PYG{n}{children}\PYG{p}{|} \PYG{p}{\PYGZgt{}=} \PYG{n}{MIN\PYGZus{}CHILDREN} \PYG{p}{\PYGZam{}\PYGZam{}}
+      \PYG{p}{|}\PYG{n}{children}\PYG{p}{|} \PYG{p}{\PYGZlt{}=} \PYG{n}{MAX\PYGZus{}CHILDREN} \PYG{p}{\PYGZam{}\PYGZam{}}
+      \PYG{n}{forall} \PYG{n}{c}\PYG{p}{:} \PYG{n}{Rope} \PYG{p}{::} \PYG{n}{c} \PYG{k}{in} \PYG{n}{children} \PYG{p}{==\PYGZgt{}}
+        \PYG{n}{c} \PYG{k}{in} \PYG{n}{Repr} \PYG{p}{\PYGZam{}\PYGZam{}} \PYG{k}{this} \PYG{p}{!}\PYG{k}{in} \PYG{n}{c}\PYG{p}{.}\PYG{n}{Repr} \PYG{p}{\PYGZam{}\PYGZam{}}
+        \PYG{n}{c}\PYG{p}{.}\PYG{n}{Repr} \PYG{p}{\PYGZlt{}} \PYG{n}{Repr} \PYG{p}{\PYGZam{}\PYGZam{}} \PYG{n}{c}\PYG{p}{.}\PYG{n}{ValidNonRoot}\PYG{p}{()} \PYG{p}{\PYGZam{}\PYGZam{}}
+        \PYG{n}{c}\PYG{p}{.}\PYG{n}{height} \PYG{p}{==} \PYG{n}{height} \PYG{p}{\PYGZhy{}} \PYG{l+m}{1} \PYG{p}{\PYGZam{}\PYGZam{}}
+        \PYG{p}{|}\PYG{n}{c}\PYG{p}{.}\PYG{n}{Content}\PYG{p}{|} \PYG{p}{\PYGZlt{}=} \PYG{p}{|}\PYG{n}{Content}\PYG{p}{|} \PYG{p}{\PYGZam{}\PYGZam{}}
+        \PYG{n}{forall} \PYG{n}{co}\PYG{p}{:} \PYG{k+kt}{string} \PYG{p}{::} \PYG{n}{co} \PYG{k}{in} \PYG{n}{c}\PYG{p}{.}\PYG{n}{Content} \PYG{p}{==\PYGZgt{}}
+          \PYG{n}{co} \PYG{k}{in} \PYG{k}{this}\PYG{p}{.}\PYG{n}{Content}
+  \PYG{p}{)}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

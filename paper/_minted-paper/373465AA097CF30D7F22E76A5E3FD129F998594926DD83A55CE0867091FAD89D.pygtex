@@ -1,11 +1,12 @@
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n}{method} \PYG{n+nf}{Insert}\PYG{p}{(}\PYG{n}{i}\PYG{p}{:} \PYG{k+kt}{int}\PYG{p}{,} \PYG{n}{s}\PYG{p}{:} \PYG{k+kt}{string}\PYG{p}{)} \PYG{n}{returns} \PYG{p}{(}\PYG{n}{newRope}\PYG{p}{:} \PYG{n}{Rope}\PYG{p}{?)}
+\PYG{n}{method} \PYG{n+nf}{Insert}\PYG{p}{(}\PYG{n}{i}\PYG{p}{:} \PYG{k+kt}{int}\PYG{p}{,} \PYG{n}{s}\PYG{p}{:} \PYG{k+kt}{string}\PYG{p}{)} \PYG{n}{returns} \PYG{p}{(}\PYG{n}{r}\PYG{p}{:} \PYG{n}{Rope}\PYG{p}{?)}
   \PYG{n}{requires} \PYG{n+nf}{Valid}\PYG{p}{()}
   \PYG{n}{requires} \PYG{n+nf}{ValidLen}\PYG{p}{()}
   \PYG{n}{ensures} \PYG{n+nf}{Valid}\PYG{p}{()}
   \PYG{n}{ensures} \PYG{n+nf}{ValidLen}\PYG{p}{()}
   \PYG{n}{ensures} \PYG{n}{newRope} \PYG{p}{!=} \PYG{k}{null} \PYG{p}{==\PYGZgt{}} \PYG{n}{newRope}\PYG{p}{.}\PYG{n}{Valid}\PYG{p}{()}
   \PYG{n}{ensures} \PYG{n}{newRope} \PYG{p}{!=} \PYG{k}{null} \PYG{p}{==\PYGZgt{}} \PYG{n}{newRope}\PYG{p}{.}\PYG{n}{ValidLen}\PYG{p}{()}
-  \PYG{n}{ensures} \PYG{n}{i} \PYG{p}{\PYGZlt{}} \PYG{l+m}{0} \PYG{p}{||} \PYG{n}{i} \PYG{p}{\PYGZgt{}=} \PYG{k}{this}\PYG{p}{.}\PYG{n}{Len}\PYG{p}{()} \PYG{p}{\PYGZlt{}==\PYGZgt{}} \PYG{n}{newRope} \PYG{p}{==} \PYG{k}{null}
+  \PYG{n}{ensures} \PYG{n}{i} \PYG{p}{\PYGZlt{}} \PYG{l+m}{0} \PYG{p}{||} \PYG{n}{i} \PYG{p}{\PYGZgt{}=} \PYG{k}{this}\PYG{p}{.}\PYG{n}{Len}\PYG{p}{()}
+    \PYG{p}{\PYGZlt{}==\PYGZgt{}} \PYG{n}{newRope} \PYG{p}{==} \PYG{k}{null}
 \PYG{p}{\PYGZob{}} \PYG{p}{[...]} \PYG{p}{\PYGZcb{}}
 \end{Verbatim}

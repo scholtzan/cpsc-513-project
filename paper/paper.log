@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.11.5)  3 DEC 2018 15:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.11.5)  4 DEC 2018 11:11
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1427,8 +1427,53 @@ Overfull \hbox (2.06155pt too wide) in paragraph at lines 125--126
 \openout5 = `paper.pyg'.
 
 
-(./_minted-paper/9DA082F4844BA9144D9FB895995B3E64F998594926DD83A55CE0867091FAD8
-9D.pygtex)) (./lessons-learned.tex) (./related-work.tex) (./future-work.tex)
+(./_minted-paper/373465AA097CF30D7F22E76A5E3FD129F998594926DD83A55CE0867091FAD8
+9D.pygtex)
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
+(Font)              scaled to size 7.3pt on input line 162.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
+(Font)              scaled to size 5.5pt on input line 162.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 7.3pt on input line 162.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 5.5pt on input line 162.
+
+Overfull \hbox (1.77051pt too wide) in paragraph at lines 166--167
+[]\T1/LinuxLibertineT-TLF/m/it/9 (-20) The length of the text stored in leaf no
+des is at most $\OML/nxlmi/m/it/9 MAX[]LEAF$\T1/LinuxLibertineT-TLF/m/n/9 (-20)
+ .
+ []
+
+[3.3]
+\openout5 = `paper.pyg'.
+
+
+(./_minted-paper/EB9AF155D03CB148FF526EE8EEC63A54F998594926DD83A55CE0867091FAD8
+9D.pygtex
+Package microtype Info: Character `textendash ' is missing
+(microtype)             in font `T1/zi4/m/it/9'.
+(microtype)             Ignoring protrusion settings for this character.
+Package microtype Info: Character `textemdash ' is missing
+(microtype)             in font `T1/zi4/m/it/9'.
+(microtype)             Ignoring protrusion settings for this character.
+)
+\openout5 = `paper.pyg'.
+
+
+(./_minted-paper/25184940EE832D213E653EBB0D849210F998594926DD83A55CE0867091FAD8
+9D.pygtex)
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+\openout5 = `paper.pyg'.
+
+
+(./_minted-paper/0A71B3E183F5DE2542257D5E8FC887E5F998594926DD83A55CE0867091FAD8
+9D.pygtex)
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) (./lessons-learned.tex) (./related-work.tex) (./future-work.tex)
 (./conclusion.tex)
 Overfull \hbox (15.07655pt too wide) in paragraph at lines 1--92
 \T1/LinuxLibertineT-TLF/m/n/9 (-20) The code is pub-lished on: []$https : / / g
@@ -1440,13 +1485,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 1--92
 
  []
 
-(./paper.bbl
+(./paper.bbl [4.4]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 7.0pt on input line 10.
 )
 runsystem(rm "paper.pyg")...executed.
 
- [3.3]
+ [5.5
+
+]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 96.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 96.
  (./paper.aux)
@@ -1460,33 +1507,35 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 22630 strings out of 493014
- 364867 string characters out of 6133351
- 537803 words of memory out of 5000000
- 25373 multiletter control sequences out of 15000+600000
- 112370 words of font info for 192 fonts, out of 8000000 for 9000
+ 22711 strings out of 493014
+ 367171 string characters out of 6133351
+ 539803 words of memory out of 5000000
+ 25391 multiletter control sequences out of 15000+600000
+ 136647 words of font info for 220 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  60i,11n,94p,796b,497s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc}{
-/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/
-usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/u
-sr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/us
-r/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}{/usr
-/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}</usr/
-local/texlive/2016/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4b.p
-fb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/inconsolata/Inconsola
-ta-zi4r.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/Li
-nBiolinumT.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine
-/LinBiolinumTB.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/liber
-tine/LinBiolinumTI.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/l
-ibertine/LinLibertineT.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/publ
-ic/libertine/LinLibertineTB.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1
-/public/libertine/LinLibertineTI.pfb></usr/local/texlive/2016/texmf-dist/fonts/
-type1/public/txfonts/txsy.pfb>
-Output written on paper.pdf (3 pages, 456351 bytes).
+{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/t
+exlive/2016/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc}{/usr/local/texl
+ive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/local/texli
+ve/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/usr/local/texliv
+e/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/usr/local/texlive
+/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}{/usr/local/texlive/
+2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}</usr/local/texlive/2
+016/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4b.pfb></usr/local/
+texlive/2016/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></u
+sr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinBiolinumT.pfb>
+</usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinBiolinumTB.
+pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinBiolinu
+mTI.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinLib
+ertineT.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/Li
+nLibertineTB.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/liberti
+ne/LinLibertineTI.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/tx
+fonts/txsy.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/newtx/zxl
+ri.pfb>
+Output written on paper.pdf (5 pages, 489750 bytes).
 PDF statistics:
- 184 PDF objects out of 1000 (max. 8388607)
- 152 compressed objects within 2 object streams
- 35 named destinations out of 1000 (max. 500000)
- 39051 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 231 PDF objects out of 1000 (max. 8388607)
+ 195 compressed objects within 2 object streams
+ 53 named destinations out of 1000 (max. 500000)
+ 41099 words of extra memory for PDF output out of 42996 (max. 10000000)
 

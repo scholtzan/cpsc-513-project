@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{predicate} \PYG{n+nf}{ValidLen}\PYG{p}{()}
+  \PYG{n}{requires} \PYG{n+nf}{Valid}\PYG{p}{()}
+  \PYG{n}{reads} \PYG{k}{this}\PYG{p}{,} \PYG{n}{Repr}
+\PYG{p}{\PYGZob{}}
+  \PYG{n}{match} \PYG{k}{this}\PYG{p}{.}\PYG{n}{val}
+  \PYG{k}{case} \PYG{n+nf}{Leaf}\PYG{p}{(}\PYG{n}{v}\PYG{p}{)} \PYG{p}{=\PYGZgt{}}
+    \PYG{k}{this}\PYG{p}{.}\PYG{n}{len} \PYG{p}{==} \PYG{p}{|}\PYG{n}{v}\PYG{p}{|} \PYG{p}{\PYGZam{}\PYGZam{}}
+    \PYG{n}{ContentLen}\PYG{p}{(}\PYG{k}{this}\PYG{p}{.}\PYG{n}{Content}\PYG{p}{)} \PYG{p}{==} \PYG{p}{|}\PYG{n}{v}\PYG{p}{|} \PYG{p}{\PYGZam{}\PYGZam{}}
+    \PYG{p}{|}\PYG{n}{Content}\PYG{p}{|} \PYG{p}{==} \PYG{l+m}{1}
+  \PYG{k}{case} \PYG{n+nf}{InternalNode}\PYG{p}{(}\PYG{n}{children}\PYG{p}{)} \PYG{p}{=\PYGZgt{}}
+    \PYG{k}{this}\PYG{p}{.}\PYG{n}{len} \PYG{p}{\PYGZgt{}=} \PYG{l+m}{0} \PYG{p}{\PYGZam{}\PYGZam{}}
+    \PYG{n}{forall} \PYG{n}{c}\PYG{p}{:} \PYG{n}{Rope} \PYG{p}{::} \PYG{n}{c} \PYG{k}{in} \PYG{n}{children} \PYG{p}{==\PYGZgt{}}
+      \PYG{n}{c}\PYG{p}{.}\PYG{n}{len} \PYG{p}{\PYGZlt{}=} \PYG{k}{this}\PYG{p}{.}\PYG{n}{len} \PYG{p}{\PYGZam{}\PYGZam{}}
+      \PYG{n}{c}\PYG{p}{.}\PYG{n}{ValidLen}\PYG{p}{()}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

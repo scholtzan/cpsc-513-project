@@ -9,7 +9,7 @@ We manually added annotations, such as pre-conditions, post-conditions and loop 
 
 \subsection{Standard Rope Verification}
 
-We start with verifying the standard rope data structure because its structure and properties are simpler and will server as basis for verifying the more complex xi-editor rope.
+We start with verifying the standard rope data structure because its structure and properties are simpler and will serve as basis for verifying the more complex xi-editor rope.
 
 \subsubsection{Specification}
 
@@ -130,14 +130,15 @@ Operations that are currently implemented are:
 
 \begin{listing}[h!]
 \begin{minted}[xleftmargin=1.5em,linenos]{csharp}
-method Insert(i: int, s: string) returns (newRope: Rope?)
+method Insert(i: int, s: string) returns (r: Rope?)
   requires Valid()
   requires ValidLen()
   ensures Valid()
   ensures ValidLen()
   ensures newRope != null ==> newRope.Valid()
   ensures newRope != null ==> newRope.ValidLen()
-  ensures i < 0 || i >= this.Len() <==> newRope == null
+  ensures i < 0 || i >= this.Len() 
+    <==> newRope == null
 { [...] }
 \end{minted}
     \caption{Definition of \texttt{Insert()} method}
@@ -147,7 +148,134 @@ method Insert(i: int, s: string) returns (newRope: Rope?)
 Running our implementation in Dafny 2.2.0.10923 results in no errors.
 
 
-
 \subsection{Xi-Editor Rope Verification}
 
+In the following we will provide a specification of the rope used in xi-editor that is based on the actual implementation. [todo: reference]
+Implemented operations will be simplified.
+We will focus solely on the text storage aspects and related operations, while in reality xi-editor has much more extensive functionality, for example to keep track of cursors, edit history or multiple views.
+
 \subsubsection{Specification}
+
+The rope data structure used in xi-editor is based on a B-tree and has the following properties:
+  
+\begin{enumerate}
+  \item \textit{Every node has at most $MAX\_CHILDREN$ children}. \\ $MAX\_CHILDREN$ is constant that is by default set to 8.\footnote{\url{https://github.com/xi-editor/xi-editor/blob/master/rust/rope/src/tree.rs\#L24} (3. December 2018)}
+  \item \textit{Every non-leaf node, except the root node, has at least \\ $MIN\_CHILDREN$ child nodes}. $MIN\_CHILDREN$ is a constant this is by default set to 4.\footnote{\url{https://github.com/xi-editor/xi-editor/blob/master/rust/rope/src/tree.rs\#L23} (3. December 2018)}
+  \item \textit{The root has at least two children, if it is not a leaf node}. 
+  \item \textit{Only leaves contain data.} The original text is, again, split into chunks which are stored in the leaves.
+  \item \textit{The length of the text stored in leaf nodes is at most $MAX\_LEAF$}. $MAX\_LEAF$ is a constant that is by default set to 1024.\footnote{\url{https://github.com/xi-editor/xi-editor/blob/master/rust/rope/src/rope.rs\#L39} (3. December 2018)}
+  \item \textit{Weight values of non-leaf nodes is the sum of the children's weights.}
+  \item \textit{Weight values of leaf nodes is the length of the stored text.}
+  \item \textit{All leaves appear on the same level.}
+\end{enumerate}
+  
+\subsubsection{Verification}
+
+The rope data structure as shown in~\Cref{lst:xi-rope} has some similarity to the standard rope data structure.
+Like before, there are two different node types, \texttt{Leaf} and \texttt{InternalNode}, however \texttt{InternalNode} can have multiple children instead of just two. 
+Furthermore, each node has an additional \texttt{height} attribute which indicates the level of the node. 
+Leaf nodes, for example, have a height of 0 and their parents would have a height of 1.
+For verification purposes an additional ghost variable \texttt{Content} has been added.
+
+\begin{listing}[h!]
+\begin{minted}[xleftmargin=1.5em,linenos]{csharp}
+datatype Node = Leaf(value: string) | 
+    InternalNode(children: seq<Rope>)
+
+class Rope {
+  ghost var Repr: set<Rope>
+  ghost var Content: seq<string>
+
+  var val: Node
+  var len: int
+  var height: int
+  // [...]
+\end{minted}
+    \caption{Xi-editor rope data structure in Dafny}
+    \label{lst:xi-rope}
+\end{listing}
+
+We defined two predicates \texttt{Valid()} and \texttt{ValidNonRoot()} to verify the correct structure of the rope.
+\texttt{Valid()} is almost identical to \texttt{ValidNonRoot()} which is shown in~\Cref{lst:xi-rope-valid}, the only difference is that \texttt{Valid()} is used to verify the root node which has no $MIN\_CHILDREN$ threshold.
+Instead line 16 in~\Cref{lst:xi-rope-valid} is replaced by \texttt{|children| >= 2} in \texttt{Valid()}.
+When verifying the rope structure, the rope is traversed and it is ensured that the height attributes of the nodes are correct, that only leaves contain text content which must not exceed a certain threshold and that all children of internal nodes are valid.
+
+
+\begin{listing}[h!]
+\begin{minted}[xleftmargin=1.5em,linenos]{csharp}
+predicate ValidNonRoot()
+  reads this, Repr
+  requires MAX_LEAF_LEN >= MIN_LEAF_LEN
+  requires MIN_CHILDREN <= MAX_CHILDREN && 
+           MIN_CHILDREN >= 2
+{
+  this in Repr &&
+  (
+    match this.val
+    case Leaf(v) => 
+      |v| <= MAX_LEAF_LEN && 
+      Content == [v] && 
+      height == 0
+    case InternalNode(children) =>
+      height >= 0 &&
+      |children| >= MIN_CHILDREN &&
+      |children| <= MAX_CHILDREN &&
+      forall c: Rope :: c in children ==>
+        c in Repr && this !in c.Repr && 
+        c.Repr < Repr && c.ValidNonRoot() &&
+        c.height == height - 1 && 
+        |c.Content| <= |Content| &&
+        forall co: string :: co in c.Content ==> 
+          co in this.Content
+  )
+}
+\end{minted}
+    \caption{Predicate to validate the structure of the rope in xi-editor}
+    \label{lst:xi-rope-valid}
+\end{listing}
+
+\texttt{ValidLen()} is very similar to the predicate defined for the standard rope.
+It recursively traverses the rope and verifies that the weight of leaf nodes is equal to the length of the stored text, and of internal nodes is equal to the sum of all child nodes.
+
+\begin{listing}[h!]
+\begin{minted}[xleftmargin=1.5em,linenos]{csharp}
+predicate ValidLen()
+  requires Valid()
+  reads this, Repr
+{
+  match this.val
+  case Leaf(v) => 
+    this.len == |v| && 
+    ContentLen(this.Content) == |v| && 
+    |Content| == 1
+  case InternalNode(children) => 
+    this.len >= 0 && 
+    forall c: Rope :: c in children ==> 
+      c.len <= this.len &&
+      c.ValidLen()
+}
+\end{minted}
+    \caption{Predicate to validate the weights of the nodes}
+    \label{lst:xi-rope-valid-len}
+\end{listing}
+
+We implemented several of the operations used in xi-editor for modifying or processing the rope.
+Some of the operations used for the standard rope are not implemented in xi-editor. 
+For example, there exists no \texttt{Delete} operation, instead to delete text the rope is split into three parts of which two parts are concatenated, leaving out the part that is to be removed.
+Furthermore, instead of having a \texttt{Report()} operation that returns the entire stored text, xi-editor has an operation that returns a slice of the text.
+Since only parts of the text are displayed to the user it is not necessary to transmit the entire text to the frontend which significantly improves performance, especially considering that after every edit the text needs to be updated.\footnote{Xi-editor has additional more advanced mechanisms to handle edits in a performant way. For example, if there are single edits then only the deltas are sent and processed by the frontend to update the text. However, for reasons of simplicity, we did not consider deltas in our implementation.}
+
+The operations that are implemented and verfied are:
+\begin{itemize} 
+  \item \texttt{SliceToString(i: int, j: int) returns (slice: string)} which returns a text slice,
+  \item todo
+\end{itemize}
+
+
+We used the previously defined predicates as pre-conditions and post-conditions for our implemented methods and added some additional conditions to ensure that the operations return correct results.
+All of the code is published on: \url{https://github.com/scholtzan/cpsc-513-project}.
+
+Running our implementation in Dafny 2.2.0.10923 successfully verifies all conditions and results in no errors.
+
+
+  

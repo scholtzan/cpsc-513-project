@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{datatype} \PYG{n}{Node} \PYG{p}{=} \PYG{n}{Leaf}\PYG{p}{(}\PYG{k}{value}\PYG{p}{:} \PYG{k+kt}{string}\PYG{p}{)} \PYG{p}{|}
+    \PYG{n}{InternalNode}\PYG{p}{(}\PYG{n}{children}\PYG{p}{:} \PYG{n}{seq}\PYG{p}{\PYGZlt{}}\PYG{n}{Rope}\PYG{p}{\PYGZgt{})}
+
+\PYG{k}{class} \PYG{n+nc}{Rope} \PYG{p}{\PYGZob{}}
+  \PYG{n}{ghost} \PYG{k+kt}{var} \PYG{n}{Repr}\PYG{p}{:} \PYG{k}{set}\PYG{p}{\PYGZlt{}}\PYG{n}{Rope}\PYG{p}{\PYGZgt{}}
+  \PYG{n}{ghost} \PYG{k+kt}{var} \PYG{n}{Content}\PYG{p}{:} \PYG{n}{seq}\PYG{p}{\PYGZlt{}}\PYG{k+kt}{string}\PYG{p}{\PYGZgt{}}
+
+  \PYG{k+kt}{var} \PYG{n}{val}\PYG{p}{:} \PYG{n}{Node}
+  \PYG{k+kt}{var} \PYG{n}{len}\PYG{p}{:} \PYG{k+kt}{int}
+  \PYG{k+kt}{var} \PYG{n}{height}\PYG{p}{:} \PYG{k+kt}{int}
+  \PYG{c+c1}{// [...]}
+\end{Verbatim}
