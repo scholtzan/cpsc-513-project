@@ -32,6 +32,12 @@ M.~Brunsfeld.
   \url{https://blog.atom.io/2018/01/10/the-state-of-atoms-performance.html},
   2018.
 
+\bibitem{chaudhuri2010verifying}
+K.~Chaudhuri, D.~Doligez, L.~Lamport, and S.~Merz.
+\newblock Verifying safety properties with the tla+ proof system.
+\newblock In {\em International Joint Conference on Automated Reasoning}, pages
+  142--148. Springer, 2010.
+
 \bibitem{dafnyManual}
 R.~L. Ford and K.~R.~M. Leino.
 \newblock Dafny reference manual.

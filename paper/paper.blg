@@ -10,45 +10,45 @@ Warning--to sort, need author or key in gtk
 Warning--to sort, need author or key in gtk-rope
 Warning--can't use both volume and number fields in mai2013verifying
 Warning--empty journal in mediero2017verification
-You've used 14 entries,
+You've used 15 entries,
             2118 wiz_defined-function locations,
-            569 strings with 5510 characters,
-and the built_in function-call counts, 4359 in all, are:
-= -- 428
-> -- 173
-< -- 6
-+ -- 76
-- -- 58
-* -- 265
-:= -- 649
-add.period$ -- 40
-call.type$ -- 14
-change.case$ -- 71
+            574 strings with 5723 characters,
+and the built_in function-call counts, 4886 in all, are:
+= -- 484
+> -- 196
+< -- 7
++ -- 85
+- -- 66
+* -- 299
+:= -- 725
+add.period$ -- 44
+call.type$ -- 15
+change.case$ -- 78
 chr.to.int$ -- 0
-cite$ -- 21
-duplicate$ -- 169
-empty$ -- 392
-format.name$ -- 58
-if$ -- 965
+cite$ -- 22
+duplicate$ -- 192
+empty$ -- 433
+format.name$ -- 66
+if$ -- 1086
 int.to.chr$ -- 0
-int.to.str$ -- 14
-missing$ -- 7
-newline$ -- 68
-num.names$ -- 18
-pop$ -- 111
+int.to.str$ -- 15
+missing$ -- 8
+newline$ -- 73
+num.names$ -- 20
+pop$ -- 121
 preamble$ -- 1
-purify$ -- 57
+purify$ -- 63
 quote$ -- 0
-skip$ -- 146
+skip$ -- 164
 stack$ -- 0
-substring$ -- 245
-swap$ -- 52
-text.length$ -- 6
+substring$ -- 282
+swap$ -- 63
+text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 56
+type$ -- 60
 warning$ -- 7
-while$ -- 34
-width$ -- 16
-write$ -- 136
+while$ -- 39
+width$ -- 17
+write$ -- 148
 (There were 7 warnings)

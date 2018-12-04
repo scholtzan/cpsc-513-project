@@ -1,0 +1,11 @@
+Currently, only a few aspects important for text storage in xi-editor have been verified.
+Future work could focus on verifying additional parts of xi-editor and reduce simplifications.
+For example, it would be useful to also verify that moving through the edit history (eg. undo and redo) is working correctly.
+The current implementation also ignores edit deltas and cursors which could be part of future work.
+
+Another aspect that could be investigated is collaborative editing.
+Especially situations in which text is edited concurrently by multiple users might result in bugs or inconsistencies.
+Since Dafny currently only supports verification of sequential programs, it might be necessary to employ other verification tools or languages, such as TLA+~\cite{chaudhuri2010verifying}.
+
+It would be useful to have something like Dafny which integrates with other programming languages, for example Rust.
+Then developers would not need to reimplement their whole system in Dafny for verification.
