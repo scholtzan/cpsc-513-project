@@ -1,0 +1,9 @@
+There exists a wide variety of text editors.
+Some of them, such as Vi~\cite{vi} or Sam~\cite{pike1987text}, rely on older techniques and store text in a buffer that is represented as an array of lines.
+Other text editors, such as Atom~\cite{atom} are rich on features and functionality, however show a lack in performance when processing large files~\cite{atom-perf}.
+GTK+~\cite{gtk}, which is a toolkit for creating graphical user interfaces, provides a framework for text editing which uses a rope data structure quite similar to the one used in xi-editor~\cite{gtk-rope}.
+
+We are not aware of any work related to using formal verification methods for veryfing text editor implementations.
+In most cases the implementation correctness is checked by providing a range of unit tests.
+
+Dafny has been used to prove the correctness of distributed systems~\cite{hawblitzel2015ironfleet}, verify operating system implementations~\cite{mai2013verifying} or secure systems~\cite{hawblitzel2014ironclad}.

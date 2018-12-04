@@ -4,46 +4,51 @@ The top-level auxiliary file: paper.aux
 The style file: abbrv.bst
 Database file #1: paper.bib
 Warning--to sort, need author or key in xi
+Warning--to sort, need author or key in vi
+Warning--to sort, need author or key in atom
+Warning--to sort, need author or key in gtk
+Warning--to sort, need author or key in gtk-rope
+Warning--can't use both volume and number fields in mai2013verifying
 Warning--empty journal in mediero2017verification
-You've used 5 entries,
+You've used 14 entries,
             2118 wiz_defined-function locations,
-            524 strings with 4380 characters,
-and the built_in function-call counts, 1433 in all, are:
-= -- 144
-> -- 46
-< -- 1
-+ -- 19
-- -- 14
-* -- 78
-:= -- 225
-add.period$ -- 15
-call.type$ -- 5
-change.case$ -- 22
+            569 strings with 5510 characters,
+and the built_in function-call counts, 4359 in all, are:
+= -- 428
+> -- 173
+< -- 6
++ -- 76
+- -- 58
+* -- 265
+:= -- 649
+add.period$ -- 40
+call.type$ -- 14
+change.case$ -- 71
 chr.to.int$ -- 0
-cite$ -- 7
-duplicate$ -- 58
-empty$ -- 133
-format.name$ -- 14
-if$ -- 314
+cite$ -- 21
+duplicate$ -- 169
+empty$ -- 392
+format.name$ -- 58
+if$ -- 965
 int.to.chr$ -- 0
-int.to.str$ -- 5
-missing$ -- 3
-newline$ -- 27
-num.names$ -- 8
-pop$ -- 34
+int.to.str$ -- 14
+missing$ -- 7
+newline$ -- 68
+num.names$ -- 18
+pop$ -- 111
 preamble$ -- 1
-purify$ -- 17
+purify$ -- 57
 quote$ -- 0
-skip$ -- 49
+skip$ -- 146
 stack$ -- 0
-substring$ -- 88
-swap$ -- 14
-text.length$ -- 1
+substring$ -- 245
+swap$ -- 52
+text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 20
-warning$ -- 2
-while$ -- 13
-width$ -- 6
-write$ -- 50
-(There were 2 warnings)
+type$ -- 56
+warning$ -- 7
+while$ -- 34
+width$ -- 16
+write$ -- 136
+(There were 7 warnings)

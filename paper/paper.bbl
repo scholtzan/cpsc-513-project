@@ -1,4 +1,20 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{atom}
+Atom.
+\newblock \url{https://atom.io/}.
+
+\bibitem{gtk}
+The gtk+ project.
+\newblock \url{https://www.gtk.org/}.
+
+\bibitem{gtk-rope}
+Gtktextbtree.c.
+\newblock \url{https://github.com/GNOME/gtk/blob/master/gtk/gtktextbtree.c}.
+
+\bibitem{vi}
+The traditional vi.
+\newblock \url{http://ex-vi.sourceforge.net/}.
 
 \bibitem{xi}
 xi-editor.
@@ -9,11 +25,32 @@ H.-J. Boehm, R.~Atkinson, and M.~Plass.
 \newblock Ropes: an alternative to strings.
 \newblock {\em Software: Practice and Experience}, 25(12):1315--1330, 1995.
 
+\bibitem{atom-perf}
+M.~Brunsfeld.
+\newblock The state of atom's performance.
+\newblock
+  \url{https://blog.atom.io/2018/01/10/the-state-of-atoms-performance.html},
+  2018.
+
 \bibitem{dafnyManual}
 R.~L. Ford and K.~R.~M. Leino.
 \newblock Dafny reference manual.
 \newblock
   \url{https://github.com/Microsoft/dafny/blob/master/Docs/DafnyRef/out/DafnyRef.pdf}.
+
+\bibitem{hawblitzel2015ironfleet}
+C.~Hawblitzel, J.~Howell, M.~Kapritsos, J.~R. Lorch, B.~Parno, M.~L. Roberts,
+  S.~Setty, and B.~Zill.
+\newblock Ironfleet: proving practical distributed systems correct.
+\newblock In {\em Proceedings of the 25th Symposium on Operating Systems
+  Principles}, pages 1--17. ACM, 2015.
+
+\bibitem{hawblitzel2014ironclad}
+C.~Hawblitzel, J.~Howell, J.~R. Lorch, A.~Narayan, B.~Parno, D.~Zhang, and
+  B.~Zill.
+\newblock Ironclad apps: End-to-end security via automated full-system
+  verification.
+\newblock In {\em OSDI}, volume~14, pages 165--181, 2014.
 
 \bibitem{leino2010dafny}
 K.~R.~M. Leino.
@@ -21,9 +58,19 @@ K.~R.~M. Leino.
 \newblock In {\em International Conference on Logic for Programming Artificial
   Intelligence and Reasoning}, pages 348--370. Springer, 2010.
 
+\bibitem{mai2013verifying}
+H.~Mai, E.~Pek, H.~Xue, S.~T. King, and P.~Madhusudan.
+\newblock Verifying security invariants in expressos.
+\newblock In {\em ACM SIGPLAN Notices}, volume~48, pages 293--304. ACM, 2013.
+
 \bibitem{mediero2017verification}
 J.~Mediero~Iturrioz.
 \newblock Verification of concurrent programs in dafny.
 \newblock 2017.
+
+\bibitem{pike1987text}
+R.~Pike.
+\newblock The text editor sam.
+\newblock {\em Software: Practice and Experience}, 17(11):813--845, 1987.
 
 \end{thebibliography}
