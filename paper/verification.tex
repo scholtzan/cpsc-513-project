@@ -268,7 +268,10 @@ Since only parts of the text are displayed to the user it is not necessary to tr
 The operations that are implemented and verfied are:
 \begin{itemize} 
   \item \texttt{SliceToString(i: int, j: int) returns (slice: string)} which returns a text slice,
-  \item todo
+  \item \texttt{Index(i: int) returns (charAtIndex: string)} which returns the character stored at index \texttt{i},
+  \item \texttt{Concat(rope: Rope) returns (concatenatedRope: Rope)} which concatenates the rope with another \texttt{rope} and returns the new resulting rope,
+  \item \texttt{Split(i: int) returns (leftSplit: Rope?, rightSplit: Rope?)} which split the rope at index \texttt{i} and returns the two resulting ropes,
+  \item \texttt{Insert(i: int, s: string) returns (newRope: Rope?)} which inserts text starting at index \texttt{i} and returns the updated rope,
 \end{itemize}
 
 
