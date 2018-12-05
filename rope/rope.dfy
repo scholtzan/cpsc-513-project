@@ -132,7 +132,6 @@ module Rope {
       ensures newRope != null ==> newRope.Valid()
       ensures newRope != null ==> newRope.ValidLen()
       ensures i < 0 || i >= this.Len() <==> newRope == null
-  //    ensures newRope != null ==> newRope.Len() >= this.Len() [todo]
     {
       if i < 0
         {
@@ -304,7 +303,6 @@ module Rope {
       requires ValidLen()
       requires rope.Valid()
       requires rope.ValidLen()
-      //requires this.Repr !! rope.Repr   // prevents cycles and concatenating the same rope with itself [todo?]
       ensures concatenatedRope.Valid()
       ensures concatenatedRope.ValidLen()
     {

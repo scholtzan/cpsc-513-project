@@ -107,7 +107,6 @@ module Rope {
     method Index(i: int) returns (charAtIndex: string)
       requires Valid()
       requires ValidLen()
-//      ensures i >= 0 && i < this.len ==> charAtIndex != ""
       ensures i < 0 || i >= this.len ==> charAtIndex == ""
       decreases Repr
     {
@@ -132,12 +131,51 @@ module Rope {
             charAtIndex := children[c].Index(newI);
         }
     }
-
+    
+    //method MergeNodes(rope1: Rope, rope2: Rope) returns (newRope: Rope)
+    //  requires rope1.Valid()
+    //  requires rope1.ValidLen()
+    //  requires rope2.Valid()
+    //  requires rope2.ValidLen()
+    //  ensures newRope.Valid()
+    //  ensures newRope.ValidLen()
+    //{
+    //  var children1: seq<Node> = [];
+    //  var children2: seq<Node> = []
+    //  match rope1.val
+    //  case Leaf(v) => 
+    //    children1 := [rope1.val];
+    //  case InternalNode(c) =>
+    //    children1 := c;
+    //    
+    //  match rope2.val
+    //  case Leaf(v) => 
+    //    children2 := [rope2.val];
+    //  case InternalNode(c) =>
+    //    children2 := c;
+    //    
+    //  if |children1| + |children2| <= MAX_CHILDREN
+    //    {
+    //      newRope := Rope.FromNodes();
+    //    }
+    //}
+    
+    method Concat(rope: Rope) returns (newRope: Rope)
+      requires Valid()
+      requires ValidLen()
+      requires rope.Valid()
+      requires rope.ValidLen()
+      requires rope.height == this.height && this.len == this.Len() && rope.len == rope.Len()   // todo: cannot be ensured, implement logic
+      ensures newRope.Valid()
+      ensures newRope.ValidLen()
+    {
+      newRope := new Rope.FromNodes(this, rope);
+    }
+    
     method SliceToString(i: int, j: int) returns (slice: string)
       requires Valid()
       requires ValidLen()
       ensures i < 0 || i >= this.len || j >= this.len || i > j || j < 0 ==> slice == ""
-//      ensures slice != "" ==> |slice| == j - i
       decreases Repr
     {
         if i < 0 || j < 0 || i >= this.len || j >= this.len || i > j
