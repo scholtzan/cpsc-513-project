@@ -1,7 +1,9 @@
 Currently, only a few aspects important for text storage in xi-editor have been verified.
-It would make sense to verify operations \texttt{Split(i: int) and \texttt{Insert(i: int, s: string)} which have currently not been considered.
-Future work could focus on verifying additional parts of xi-editor and reduce simplifications.
-For example, it would be useful to also verify that moving through the edit history (eg. undo and redo) is working correctly.
+It would make sense to verify operations \texttt{Split()} and \texttt{Insert()} which have currently not been considered.
+Additionally, it might make sense to reduce some simplifications. 
+For instance, currently the \texttt{Concat()} operations requires the ropes to be the same height in order to simplify the re-balancing. 
+This simplification was made for the scope of this project, but since the original implementation can concatenate arbitrary ropes, this should be extended in the future.
+Future work could focus on verifying additional parts of xi-editor, for example, it would be useful to also verify that moving through the edit history (eg. undo and redo) is working correctly.
 The current implementation also ignores edit deltas and cursors which could be part of future work.
 
 Another aspect that could be investigated is collaborative editing.

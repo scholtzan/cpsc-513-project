@@ -4,6 +4,10 @@
 Atom.
 \newblock \url{https://atom.io/}.
 
+\bibitem{xi-rope}
+Crdt - the xi text engine.
+\newblock \url{https://xi-editor.github.io/xi-editor/docs/crdt-details.html}.
+
 \bibitem{gtk}
 The gtk+ project.
 \newblock \url{https://www.gtk.org/}.
