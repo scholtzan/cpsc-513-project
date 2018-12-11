@@ -1,35 +1,35 @@
-This section describes the experiences and lessons we learned while verifying the rope data structure in xi-editor.
+This section describes some experiences and lessons learned from verifying the rope data structure in xi-editor.
 
-Since xi-editor is written in Rust and Dafny can by default only be integrated into programs written in C\#, we had to reimplement the rope data structure and related operations in Dafny.
-On the one hand, this lead to a thorough review and more concise definition of specifications and could result in detecting bugs. 
+Since xi-editor is written in Rust and Dafny can by default only be integrated into programs written in C\#, it was necessary to reimplement the rope data structure and related operations in Dafny.
+On the one hand, this leads to a thorough review and more concise definition of specifications and could result in detecting bugs.
 Although no bugs were detected for xi-editor it definitely helped to understand and review existing code.
 On the other hand, since the code base in xi-editor for ropes is quite extensive, it was not possible to reimplement all functionality.
-Instead we had to simplify some aspects which could lead to missing important incorrect parts and still having undetected bugs.
+Instead, some aspects needed to be simplified which could lead to missing important incorrect parts and still having undetected bugs.
 
 While xi-editor has a lot of tests to ensure the correctness of the implementation, writing pre-conditions and post-conditions was surprisingly concise and expressive.
 Having something like Dafny for other programming languages, in this case for Rust, would make a very useful addition to common unit tests.
-Otherwise having two separate implementation of the same logic results in a lot of maintanance effort.
+Otherwise having two separate implementations of the same logic results in a lot of maintenance effort.
 It is quite likely that changes that are made in the xi-editor implementation will not be updated in the Dafny implementation since this would mean extra effort and maintainers having to familiarize themselves with Dafny on top of that.
 
-At the beginning of this projects, we tried to use TLA+ and Pluscal for verifying ropes.
+At the beginning of this projects, an attempt was made to use TLA+ and Pluscal for verifying ropes.
 However, specifying the system and data structure as axioms was quite complicated and took a lot of time.
 In comparison, defining these properties and modeling the rope data structure in Dafny was much faster and much more intuitive.
 While it is relatively easy to write code in Dafny, we noticed that due to the limited expressiveness the resulting code got quite long.
 
-One major downside of using Dafny was its limited error handling. 
+One major downside of using Dafny was its limited error handling.
 While it indicated which of the post- and pre-conditions failed, it did not show what the actual failure case was.
 If more extensive predicates are used as conditions, then only knowing which one failed still results in a lot of debugging effort to find out which part of the predicate is incorrect.
 
 Often, some small code changes resulted in a timeout when running the verifier.
 These cases did not necessarily mean that code was incorrect.
-However, we often had to rewrite the implementation into something equivalent which the Dafny verifier could execute before a timeout occurred.
+However, often it was necessary to rewrite the implementation into something equivalent which the Dafny verifier could execute before a timeout occurred.
 
-As mentioned before, Dafny lacks in powerfullness.
+As mentioned before, Dafny lacks in powerfulness.
 For example, it only supports integer types \texttt{int} and \texttt{nat}, however a lot of the xi-editor implementation relies on unsigned integers.
-While it is possible to add additional checks to ensure the same behaviour, it resulted in a lot of additional and otherwise unnecessary conditions.
+While it is possible to add additional checks to ensure the same behavior, it resulted in a lot of additional and otherwise unnecessary conditions.
 
 Currently, Dafny supports only verification of sequential code.
 One interesting aspect in xi-editor is that it is designed so that multiple users can edit text in parallel.
 While there have been some attempts to extend Dafny to verify parallel implementations~\cite{mediero2017verification} this is currently not possible.
 
-Although there are some positives sides of verifying such a large project with Dafny, it is unlikely that it will be used for verification in production.
+Although there are some positives sides of verifying such a large project with Dafny, it is unlikely that it will be used for verification in xi-editor.

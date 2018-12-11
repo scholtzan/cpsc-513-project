@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.11.5)  11 DEC 2018 12:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.11.5)  11 DEC 2018 13:07
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1476,11 +1476,11 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 22798 strings out of 493014
- 369032 string characters out of 6133351
+ 22801 strings out of 493014
+ 369107 string characters out of 6133351
  540803 words of memory out of 5000000
  25430 multiletter control sequences out of 15000+600000
- 139691 words of font info for 243 fonts, out of 8000000 for 9000
+ 139962 words of font info for 245 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  60i,12n,94p,796b,541s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/t
@@ -1501,7 +1501,7 @@ nLibertineTB.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/liberti
 ne/LinLibertineTI.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/tx
 fonts/txsy.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/newtx/zxl
 ri.pfb>
-Output written on paper.pdf (6 pages, 502965 bytes).
+Output written on paper.pdf (6 pages, 503082 bytes).
 PDF statistics:
  279 PDF objects out of 1000 (max. 8388607)
  241 compressed objects within 3 object streams

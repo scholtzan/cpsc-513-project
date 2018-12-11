@@ -12,12 +12,11 @@ For this, the following contributions are made:
 \begin{itemize}
 	\item A definition of the properties of the rope data structure that will be validated.
 	\item An implementation of the rope data structure as well as several common operations to verify that after applying these operations the rope is still conforming to the defined properties in Dafny~\cite{leino2010dafny}.
-	\item A summary of the good and bad parts of employing this verification approach as well as experiences and other insights.
+	\item A summary of the good and bad parts of employing this verification approach as well as possible improvements and other insights.
 \end{itemize}
 
 Since the rope data structure used in xi-editor is derived but a more complex version of the standard rope data structure~\cite{boehm1995ropes}, the approach in this project was to first verify the standard rope data structure and then apply the same verification techniques to the more complex rope data structure used in xi-editor.
 
 The rest of this paper is organized as follows: some background information about xi-editor, the rope data structure and Dafny is provided in Section~\ref{sec:background}.
-Section~\ref{sec:verification} presents a definition of the properties of the standard rope data structure as well as rope data structure used in xi-editor and details their implementation and verification in Dafny. 
+Section~\ref{sec:verification} presents a definition of the properties of the standard rope data structure as well as rope data structure used in xi-editor and details their implementation and verification in Dafny.
 The paper finishes with a summary of lessons learned in Section~\ref{sec:lessons-learned}, related work in Section~\ref{sec:related-work}, future work in Section~\ref{sec:future-work} and a conclusion in Section~\ref{sec:conclusion}.
-
