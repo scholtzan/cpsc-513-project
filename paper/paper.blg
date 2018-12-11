@@ -3,53 +3,54 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: paper.aux
 The style file: abbrv.bst
 Database file #1: paper.bib
-Warning--to sort, need author or key in xi
-Warning--to sort, need author or key in xi-rope
 Warning--to sort, need author or key in vi
 Warning--to sort, need author or key in atom
+Warning--to sort, need author or key in sublime
+Warning--to sort, need author or key in xi
+Warning--to sort, need author or key in xi-rope
 Warning--to sort, need author or key in gtk
 Warning--to sort, need author or key in gtk-rope
 Warning--can't use both volume and number fields in mai2013verifying
 Warning--empty journal in mediero2017verification
-You've used 16 entries,
+You've used 17 entries,
             2118 wiz_defined-function locations,
-            577 strings with 5821 characters,
-and the built_in function-call counts, 5045 in all, are:
-= -- 499
-> -- 197
+            580 strings with 5930 characters,
+and the built_in function-call counts, 5204 in all, are:
+= -- 514
+> -- 198
 < -- 7
-+ -- 86
++ -- 87
 - -- 66
-* -- 304
-:= -- 742
-add.period$ -- 46
-call.type$ -- 16
-change.case$ -- 81
+* -- 309
+:= -- 759
+add.period$ -- 48
+call.type$ -- 17
+change.case$ -- 84
 chr.to.int$ -- 0
-cite$ -- 24
-duplicate$ -- 199
-empty$ -- 456
+cite$ -- 26
+duplicate$ -- 206
+empty$ -- 479
 format.name$ -- 66
-if$ -- 1126
+if$ -- 1166
 int.to.chr$ -- 0
-int.to.str$ -- 16
+int.to.str$ -- 17
 missing$ -- 8
-newline$ -- 77
+newline$ -- 81
 num.names$ -- 20
-pop$ -- 129
+pop$ -- 137
 preamble$ -- 1
-purify$ -- 65
+purify$ -- 67
 quote$ -- 0
-skip$ -- 172
+skip$ -- 180
 stack$ -- 0
-substring$ -- 287
-swap$ -- 64
+substring$ -- 292
+swap$ -- 65
 text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 64
-warning$ -- 8
+type$ -- 68
+warning$ -- 9
 while$ -- 39
-width$ -- 18
-write$ -- 155
-(There were 8 warnings)
+width$ -- 19
+write$ -- 162
+(There were 9 warnings)

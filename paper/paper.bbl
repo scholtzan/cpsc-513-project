@@ -16,6 +16,10 @@ The gtk+ project.
 Gtktextbtree.c.
 \newblock \url{https://github.com/GNOME/gtk/blob/master/gtk/gtktextbtree.c}.
 
+\bibitem{sublime}
+Sublime text: A sophisticated text editor for code, markup and prose.
+\newblock \url{https://www.sublimetext.com/}.
+
 \bibitem{vi}
 The traditional vi.
 \newblock \url{http://ex-vi.sourceforge.net/}.

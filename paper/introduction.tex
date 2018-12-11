@@ -1,15 +1,23 @@
 Xi-Editor is a novel text editor with a strong focus on performance.
-While there already exists a wide variety of text editor nowadays, xi-editor is using modern software engineering techniques to provide a fast and reliable editor.
-One of the core concepts in xi-editor that allows performant text processing, is the usage of a rope data structure for storing text.
+While there already exists a wide variety of text editors nowadays~\cite{vi, pike1987text, atom, sublime}, xi-editor is using modern software engineering techniques to provide a fast and reliable editor.
+One of the core concepts which allows performant text processing is the usage of a rope data structure for storing text.
 
 Since this data structure is such a crucial part of this editor, it would be beneficial to verify that after applying certain operations, such as insertions or deletions, the rope data structure is still valid and conforms to certain defined properties.
 This is not only relevant in cases when a single user is working on some text, but also in a collaborative environment in which multiple users might edit the text in parallel.
 While xi-editor is designed to support collaborative editing, currently it is not implemented.
 
-In this project, we are using formal verification methods to ensure the correctness of the rope data structure in xi-editor.
-For this we are first defining the properties of the rope data structure that will be validated, and provide an implementation in Dafny of the rope data structure as well as several common operations to verify that after applying these operations the rope is still conforming to the defined properties.
-Since the rope data structure used in xi-editor is derived but more complex version of the standard rope data structure~\cite{boehm1995ropes}, we decided to first verify the standard rope data structure and then apply the same verfication techniques to the more complex rope data structure used in xi-editor.
+In this project, formal verification methods are used to ensure the correctness of the rope data structure in xi-editor.
+For this, the following contributions are made:
 
-The rest of this paper is organized as follows: we provide some background information about xi-editor and the rope data structure in Section~\ref{sec:background}.
-Section~\ref{sec:verification} provides a definition of the properties of the standard rope data structure as well as rope data structure used in xi-editor and details their implementation and verification in Dafny. 
-We finish the paper with related work in Section~\ref{sec:related-work}, future work in Section~\ref{sec:future-work} and a conclusion in Section~\ref{sec:conclusion}.
+\begin{itemize}
+	\item A definition of the properties of the rope data structure that will be validated.
+	\item An implementation of the rope data structure as well as several common operations to verify that after applying these operations the rope is still conforming to the defined properties in Dafny~\cite{leino2010dafny}.
+	\item A summary of the good and bad parts of employing this verification approach as well as experiences and other insights.
+\end{itemize}
+
+Since the rope data structure used in xi-editor is derived but a more complex version of the standard rope data structure~\cite{boehm1995ropes}, the approach in this project was to first verify the standard rope data structure and then apply the same verification techniques to the more complex rope data structure used in xi-editor.
+
+The rest of this paper is organized as follows: some background information about xi-editor, the rope data structure and Dafny is provided in Section~\ref{sec:background}.
+Section~\ref{sec:verification} presents a definition of the properties of the standard rope data structure as well as rope data structure used in xi-editor and details their implementation and verification in Dafny. 
+The paper finishes with a summary of lessons learned in Section~\ref{sec:lessons-learned}, related work in Section~\ref{sec:related-work}, future work in Section~\ref{sec:future-work} and a conclusion in Section~\ref{sec:conclusion}.
+
