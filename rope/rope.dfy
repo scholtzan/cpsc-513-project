@@ -11,6 +11,7 @@ module Rope {
     var len: int
     var val: Node
 
+
     constructor Init()
     ensures Valid()
     ensures ValidLen()
@@ -19,6 +20,7 @@ module Rope {
       len := 0;
       Repr := {this};
     }
+
 
     function method Len(): int
       requires Valid()
@@ -35,6 +37,7 @@ module Rope {
         else 0
     }
 
+
     predicate ValidLen()
       requires Valid()
       reads this, Repr
@@ -46,6 +49,7 @@ module Rope {
         (left == null ==> this.len == 0) &&
         (right != null ==> right.ValidLen())
     }
+
 
     predicate Valid()
       reads this, Repr
@@ -70,6 +74,7 @@ module Rope {
       )
     }
 
+
     function method Report(): string
       requires Valid()
       requires ValidLen()
@@ -88,6 +93,7 @@ module Rope {
           else if left == null && right == null then ""
           else ""
     }
+
 
     method Delete(i: int, j: int) returns (newRope: Rope?)
       requires Valid()
@@ -130,6 +136,7 @@ module Rope {
             }
         }
     }
+
 
     method Insert(i: int, s: string) returns (newRope: Rope?)
       requires Valid()
@@ -182,6 +189,7 @@ module Rope {
             }
         }
     }
+
 
     method Split(i: int) returns (leftSplit: Rope?, rightSplit: Rope?)
       requires Valid()
@@ -305,6 +313,7 @@ module Rope {
         }
     }
 
+
     method Concat(rope: Rope) returns (concatenatedRope: Rope)
       requires Valid()
       requires ValidLen()
@@ -318,6 +327,7 @@ module Rope {
       concatenatedRope.len := this.Len();
       concatenatedRope.Repr := concatenatedRope.Repr + this.Repr + rope.Repr;
     }
+
 
     method Index(i: int) returns (charAtIndex: string)
       requires Valid()
@@ -351,6 +361,7 @@ module Rope {
 }
 
 
+
 /////////////////////////// xi-editor //////////////////////////////////////////
 
 module XiRope {
@@ -369,6 +380,7 @@ module XiRope {
     var len: int
     var height: int
 
+
     constructor Init()
       ensures Valid()
       ensures ValidLen()
@@ -379,6 +391,7 @@ module XiRope {
       Repr := {this};
       Content := [""];
     }
+
 
     constructor FromNodes(left: Rope, right: Rope)
       requires left.ValidNonRoot() &&
@@ -399,12 +412,14 @@ module XiRope {
 
     }
 
+
     function method ContentLen(c: seq<string>): int
       decreases |c|
     {
       if |c| == 0 then 0
       else |c[0]| + ContentLen(c[1..])
     }
+
 
     function Len(): int
       requires Valid()
@@ -415,6 +430,7 @@ module XiRope {
       case Leaf(v) => |v|
       case InternalNode(children) => ContentLen(this.Content)
     }
+
 
     predicate ValidLen()
       requires Valid()
@@ -429,6 +445,7 @@ module XiRope {
         this.len >= 0 && forall c: Rope :: c in children ==>
           c.len <= this.len && c.ValidLen()
     }
+
 
     predicate ValidNonRoot()
       reads this, Repr
@@ -450,6 +467,7 @@ module XiRope {
       )
     }
 
+
     predicate Valid()
       reads this, Repr
       requires MAX_LEAF_LEN >= MIN_LEAF_LEN
@@ -469,6 +487,7 @@ module XiRope {
             forall cont: string :: cont in c.Content ==> cont in this.Content
       )
     }
+
 
     method Index(i: int) returns (charAtIndex: string)
       requires Valid()
@@ -498,6 +517,7 @@ module XiRope {
         }
     }
 
+
     //method MergeNodes(rope1: Rope, rope2: Rope) returns (newRope: Rope)
     //  requires rope1.Valid()
     //  requires rope1.ValidLen()
@@ -526,6 +546,7 @@ module XiRope {
     //    }
     //}
 
+
     method Concat(rope: Rope) returns (newRope: Rope)
       requires Valid()
       requires ValidLen()
@@ -540,6 +561,34 @@ module XiRope {
       // todo: implement for any input rope structure
       newRope := new Rope.FromNodes(this, rope);
     }
+
+
+    //method Split(i: int) returns (leftSplit: Rope?, rightSplit: Rope?)
+    //  requires Valid()
+    //  requires ValidLen()
+    //  ensures leftSplit != null ==> leftSplit.Valid()
+    //  ensures rightSplit != null ==> rightSplit.Valid()
+    //  ensures rightSplit != null ==> rightSplit.ValidLen()
+    //  ensures leftSplit != null ==> leftSplit.ValidLen()
+    //  ensures i >= 0 && i < this.Len() ==> leftSplit != null || rightSplit != null
+    //  ensures i <= 0 ==> leftSplit == null
+    //  ensures i > 0 && i >= this.Len() ==> rightSplit == null
+    //  decreases Repr
+    //{
+    //}
+
+
+    //method Insert(i: int, s: string) returns (newRope: Rope?)
+    //  requires Valid()
+    //  requires ValidLen()
+    //  ensures Valid()
+    //  ensures ValidLen()
+    //  ensures newRope != null ==> newRope.Valid()
+    //  ensures newRope != null ==> newRope.ValidLen()
+    //  ensures i < 0 || i >= this.Len() <==> newRope == null
+    //{
+    //}
+    
 
     method SliceToString(i: int, j: int) returns (slice: string)
       requires Valid()
