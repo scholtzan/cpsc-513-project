@@ -16,10 +16,10 @@ The standard rope data structure used for storing text is based on a modified bi
 It has the following properties:
 
 \begin{enumerate}
-  \item \textit{Every node has at most two children.} It is also allowed that a node has only one child or no child at all.
-  \item \textit{Only leaves contain data.} The original text is split into chunks which are stored in the leaves.
-  \item \textit{Weight values of non-leaf nodes are the weights of all children in the left subtree.}
-  \item \textit{Weight values of leaf nodes are the length of the stored text.}
+  \item Every node has at most two children. It is also allowed that a node has only one child or no child at all.
+  \item Only leaves contain data. The original text is split into chunks which are stored in the leaves.
+  \item Weight values of non-leaf nodes are the weights of all children in the left subtree.
+  \item Weight values of leaf nodes are the length of the stored text.
 \end{enumerate}
 
 \subsubsection{Verification}
@@ -160,14 +160,14 @@ To derive a formal specification the existing Rust implementation and some exist
 The rope data structure used in xi-editor is based on a B-tree and has the following properties:
 
 \begin{enumerate}
-  \item \textit{Every node has at most $MAX\_CHILDREN$ children}. \\ $MAX\_CHILDREN$ is constant that is by default set to 8.\footnote{\url{https://github.com/xi-editor/xi-editor/blob/master/rust/rope/src/tree.rs\#L24} (3. December 2018)}
-  \item \textit{Every non-leaf node, except the root node, has at least \\ $MIN\_CHILDREN$ child nodes}. $MIN\_CHILDREN$ is a constant this is by default set to 4.\footnote{\url{https://github.com/xi-editor/xi-editor/blob/master/rust/rope/src/tree.rs\#L23} (3. December 2018)}
-  \item \textit{The root has at least two children, if it is not a leaf node}.
-  \item \textit{Only leaves contain data.} The original text is, again, split into chunks which are stored in the leaves.
-  \item \textit{The length of the text stored in leaf nodes is at most $MAX\_LEAF$}. $MAX\_LEAF$ is a constant that is by default set to 1024.\footnote{\url{https://github.com/xi-editor/xi-editor/blob/master/rust/rope/src/rope.rs\#L39} (3. December 2018)}
-  \item \textit{Weight values of non-leaf nodes is the sum of the children's weights.}
-  \item \textit{Weight values of leaf nodes is the length of the stored text.}
-  \item \textit{All leaves appear on the same level.}
+  \item Every node has at most $MAX\_CHILDREN$ children. \\ $MAX\_CHILDREN$ is constant that is by default set to 8.\footnote{\url{https://github.com/xi-editor/xi-editor/blob/master/rust/rope/src/tree.rs\#L24} (3. December 2018)}
+  \item Every non-leaf node, except the root node, has at least \\ $MIN\_CHILDREN$ child nodes. $MIN\_CHILDREN$ is a constant this is by default set to 4.\footnote{\url{https://github.com/xi-editor/xi-editor/blob/master/rust/rope/src/tree.rs\#L23} (3. December 2018)}
+  \item The root has at least two children, if it is not a leaf node.
+  \item Only leaves contain data. The original text is, again, split into chunks which are stored in the leaves.
+  \item The length of the text stored in leaf nodes is at most $MAX\_LEAF\_LEN$. $MAX\_LEAF\_LEN$ is a constant that is by default set to 1024.\footnote{\url{https://github.com/xi-editor/xi-editor/blob/master/rust/rope/src/rope.rs\#L39} (3. December 2018)}
+  \item Weight values of non-leaf nodes is the sum of the children's weights.
+  \item Weight values of leaf nodes is the length of the stored text.
+  \item All leaves appear on the same level.
 \end{enumerate}
 
 \subsubsection{Verification}

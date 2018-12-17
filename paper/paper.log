@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.11.5)  11 DEC 2018 13:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.11.5)  17 DEC 2018 10:00
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1333,15 +1333,15 @@ File: "figures/rope".pdf Graphic file (type pdf)
 Package pdftex.def Info: "figures/rope".pdf used on input line 22.
 (pdftex.def)             Requested size: 144.68996pt x 132.97179pt.
 
-<"figures/xi-rope".pdf, id=81, 589.20125pt x 373.395pt>
+[1.1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+
+ <./figures/rope.pdf>] <"figures/xi-rope".pdf, id=100, 589.20125pt x 373.395pt>
 File: "figures/xi-rope".pdf Graphic file (type pdf)
 
 <use "figures/xi-rope".pdf>
 Package pdftex.def Info: "figures/xi-rope".pdf used on input line 33.
 (pdftex.def)             Requested size: 241.14749pt x 152.82515pt.
- [1.1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
-
- <./figures/rope.pdf>])
+)
 Overfull \hbox (3.66504pt too wide) in paragraph at lines 50--71
 \T1/LinuxLibertineT-TLF/m/n/9 (-20) used are post- and pre-conditions which can
  be added to the method's
@@ -1352,8 +1352,6 @@ LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 9.0pt on input line 15.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/it' will be
 (Font)              scaled to size 9.0pt on input line 15.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 19.
 Package microtype Info: Loading generic settings for font family
 (microtype)             `zi4' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
@@ -1406,22 +1404,17 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 (./_minted-paper/373465AA097CF30D7F22E76A5E3FD129F998594926DD83A55CE0867091FAD8
 9D.pygtex)
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 7.3pt on input line 163.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 5.5pt on input line 163.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 7.3pt on input line 163.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 5.5pt on input line 163.
-
-Overfull \hbox (1.77051pt too wide) in paragraph at lines 167--168
-[]\T1/LinuxLibertineT-TLF/m/it/9 (-20) The length of the text stored in leaf no
-des is at most $\OML/nxlmi/m/it/9 MAX[]LEAF$\T1/LinuxLibertineT-TLF/m/n/9 (-20)
- .
+ [3.3]
+Overfull \hbox (31.69414pt too wide) in paragraph at lines 167--168
+[]\T1/LinuxLibertineT-TLF/m/n/9 (-20) The length of the text stored in leaf nod
+es is at most $\OML/nxlmi/m/it/9 MAX[]LEAF[]LEN$\T1/LinuxLibertineT-TLF/m/n/9 (
+-20) .
  []
 
-[3.3]
 \openout5 = `paper.pyg'.
 
 
@@ -1451,10 +1444,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [4.4]) (./lessons-learned.tex) (./related-work.tex) (./future-work.tex)
-Underfull \vbox (badness 4660) has occurred while \output is active []
-
- [5.5]
-(./conclusion.tex) (./paper.bbl
+[5.5] (./conclusion.tex) (./paper.bbl
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 7.0pt on input line 34.
 )
@@ -1476,16 +1466,16 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 22801 strings out of 493014
- 369107 string characters out of 6133351
+ 22778 strings out of 493014
+ 368472 string characters out of 6133351
  540803 words of memory out of 5000000
- 25430 multiletter control sequences out of 15000+600000
- 139962 words of font info for 245 fonts, out of 8000000 for 9000
+ 25424 multiletter control sequences out of 15000+600000
+ 123196 words of font info for 233 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 60i,12n,94p,796b,541s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/t
-exlive/2016/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc}{/usr/local/texl
-ive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/local/texli
+ 60i,11n,94p,796b,537s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc
+}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/te
+xlive/2016/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc}{/usr/local/texli
 ve/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/usr/local/texliv
 e/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/usr/local/texlive
 /2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}{/usr/local/texlive/
@@ -1501,10 +1491,10 @@ nLibertineTB.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/liberti
 ne/LinLibertineTI.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/tx
 fonts/txsy.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/newtx/zxl
 ri.pfb>
-Output written on paper.pdf (6 pages, 503082 bytes).
+Output written on paper.pdf (6 pages, 493416 bytes).
 PDF statistics:
  279 PDF objects out of 1000 (max. 8388607)
  241 compressed objects within 3 object streams
  67 named destinations out of 1000 (max. 500000)
- 41099 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 35979 words of extra memory for PDF output out of 42996 (max. 10000000)
 
